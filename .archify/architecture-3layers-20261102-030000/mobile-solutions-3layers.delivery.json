@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "f6434aad-52f4-4e5c-a338-dd14c738e65c",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\architecture-3layers-20261102-030000\\candidate.json",
+  "output": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\architecture-3layers-20261102-030000\\mobile-solutions-3layers.html",
+  "specification": {
+    "sha256": "7e8a5242adc1aa58338c2861c35e4c762378b407664d469a36c8be05e291a41d",
+    "bytes": 2994
+  },
+  "artifact": {
+    "sha256": "21244889243b3d1c3995a0419846820f6951bbee0df47cffe484063e78ee61dc",
+    "bytes": 834371
+  }
+}

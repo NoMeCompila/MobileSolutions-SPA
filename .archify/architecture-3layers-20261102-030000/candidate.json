@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Arquitectura de 3 Capas - Mobile Solutions POS",
+    "subtitle": "Modelo de 3 Niveles: Presentación, Lógica de Negocio y Acceso a Datos",
+    "locale": "es",
+    "output": ".archify/architecture-3layers-20261102-030000/mobile-solutions-3layers.html",
+    "visual_preset": "blueprint",
+    "quality_profile": "standard"
+  },
+  "components": [
+    {
+      "id": "ui_layer",
+      "type": "frontend",
+      "icon": "frontend",
+      "label": "Nivel 1: Capa de Presentación",
+      "sublabel": "MobileSolutions.UILayer (WinForms)",
+      "tag": "MaterialSkin.2 & LiveCharts",
+      "pos": [100, 40],
+      "size": [340, 80]
+    },
+    {
+      "id": "bll_layer",
+      "type": "backend",
+      "icon": "backend",
+      "label": "Nivel 2: Lógica de Negocio",
+      "sublabel": "MobileSolutions.BusinessLayer",
+      "tag": "Reglas de Dominio & SHA-256",
+      "pos": [100, 220],
+      "size": [340, 80]
+    },
+    {
+      "id": "dal_layer",
+      "type": "database",
+      "icon": "database",
+      "label": "Nivel 3: Acceso a Datos",
+      "sublabel": "MobileSolutions.DataLayer",
+      "tag": "ADO.NET & SQL Server LocalDB",
+      "pos": [100, 400],
+      "size": [340, 80]
+    }
+  ],
+  "connections": [
+    {
+      "id": "conn_ui_bll",
+      "from": "ui_layer",
+      "to": "bll_layer",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "Invocación de Servicios (DTO)",
+      "labelAt": [270, 168],
+      "variant": "emphasis"
+    },
+    {
+      "id": "conn_bll_dal",
+      "from": "bll_layer",
+      "to": "dal_layer",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "Persistencia & Stored Procedures (TVP)",
+      "labelAt": [270, 348],
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Nivel 1: Presentación (UI Layer)",
+      "items": [
+        "Interfaz gráfica de usuario desarrollada sobre .NET Windows Forms y MaterialSkin.2.",
+        "Vistas modulares (SaleView, ProductView, CustomerView) y métricas con LiveCharts.",
+        "Desacoplamiento estricto: no interactúa con SQL Server ni con la Capa de Datos."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Nivel 2: Lógica de Negocio (Business Layer)",
+      "items": [
+        "Orquestación operativa, cálculo de importes de venta y control de inventario.",
+        "Seguridad de usuarios, contraseñas con hash SHA-256 y tokens OTP mediante MailKit.",
+        "Intermediario obligado: valida y procesa reglas antes de persistir cambios."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Nivel 3: Acceso a Datos (Data Access Layer)",
+      "items": [
+        "Repositorios ADO.NET fuertemente tipados (SaleDal, ProductDal, UserDal).",
+        "Conexión con Microsoft SQL Server / LocalDB con transaccionalidad ACID pura.",
+        "Pool de conexiones SqlClient y procesamiento transaccional en bloque mediante TVP."
+      ]
+    }
+  ]
+}

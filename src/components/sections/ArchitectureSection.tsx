@@ -7,7 +7,9 @@ import {
   Info,
   Target,
   Network,
-  Cpu
+  Cpu,
+  Workflow,
+  ExternalLink
 } from 'lucide-react';
 import { ARCHITECTURE_LAYERS } from '../../data/posArchitectureData';
 import { ArchitectureLayer } from '../../types';
@@ -203,6 +205,50 @@ export const ArchitectureSection: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Interactive 3-Tier Architecture Diagram (Archify Engine) */}
+      <div className="p-6 rounded-xl border border-[rgba(0,180,216,0.3)] bg-gradient-to-br from-[#0A1128] to-[#070D1F] space-y-4 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#00B4D8]/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(0,180,216,0.2)] pb-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#00B4D8]">
+              <Workflow className="w-3.5 h-3.5 text-[#48CAE4]" />
+              <span>DIAGRAMA ESTRUCTURAL • ARCHIFY ENGINE</span>
+              <span>•</span>
+              <span>[3-TIER ARCHITECTURE]</span>
+            </div>
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-white mt-1">
+              Topología de 3 Niveles: Flujo y Relación Entre Capas
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <a
+              href="/mobile-solutions-3layers.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0E1B38] text-xs font-mono text-[#48CAE4] border border-[#00B4D8]/30 hover:bg-[#00B4D8]/20 transition-all shadow-sm"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Abrir en Pantalla Completa</span>
+            </a>
+          </div>
+        </div>
+
+        <p className="text-xs text-slate-300 font-sans leading-relaxed">
+          Diagrama interactivo de 3 niveles generado con Archify en estilo <em>Blueprint Dark Mode</em>. Modela la relación vertical descendente estricta entre la <strong>Capa de Presentación</strong> (Nivel 1), la <strong>Capa de Lógica de Negocio</strong> (Nivel 2) y la <strong>Capa de Acceso a Datos</strong> (Nivel 3), garantizando la separación de incumbencias y la resiliencia transaccional.
+        </p>
+
+        {/* Embedded Interactive Viewer */}
+        <div className="w-full h-[620px] rounded-lg border border-[rgba(0,180,216,0.25)] overflow-hidden bg-[#050B1A] shadow-inner relative">
+          <iframe
+            src="/mobile-solutions-3layers.html?theme=dark&embed=1"
+            title="Diagrama 3 Capas Mobile Solutions POS"
+            className="w-full h-full border-0"
+          />
         </div>
       </div>
     </div>
