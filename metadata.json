@@ -1,0 +1,6 @@
+{
+  "name": "Mobile Solutions POS - Architecture Matrix & Docs",
+  "description": "Cybernetic systems documentation, architecture matrix, and interactive telemetry console for Mobile Solutions POS in Windows Forms .NET.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
