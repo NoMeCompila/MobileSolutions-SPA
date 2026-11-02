@@ -76,7 +76,7 @@ export default function App() {
       />
 
       {/* Main Structural Body */}
-      <div className="flex-1 flex pt-16">
+      <div className="flex-1 flex pt-20 sm:pt-24">
         {/* Left Fixed 280px Navigation Tree */}
         <Sidebar
           activeSection={activeSection}

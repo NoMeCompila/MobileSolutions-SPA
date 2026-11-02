@@ -140,7 +140,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Sidebar Container (280px fixed on desktop) */}
       <aside
-        className={`fixed top-16 bottom-0 left-0 z-40 w-72 bg-[#0A1128]/95 backdrop-blur-xl border-r border-[rgba(0,180,216,0.18)] transition-transform duration-200 flex flex-col ${
+        className={`fixed top-20 sm:top-24 bottom-0 left-0 z-40 w-72 bg-[#0A1128]/95 backdrop-blur-xl border-r border-[rgba(0,180,216,0.18)] transition-transform duration-200 flex flex-col ${
           isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >

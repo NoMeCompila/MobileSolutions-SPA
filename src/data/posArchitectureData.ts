@@ -10,7 +10,7 @@ export const SYSTEM_META = {
   coldStartTime: '1.1s (NGEN Native Image Generator)',
   ramFootprint: '82 - 94 MB Working Set',
   version: 'v4.8.2-LTS',
-  status: 'ONLINE // NOMINAL'
+  status: 'ONLINE'
 };
 
 export const ARCHITECTURE_LAYERS: ArchitectureLayer[] = [
