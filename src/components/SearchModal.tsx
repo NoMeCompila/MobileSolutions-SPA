@@ -37,8 +37,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   // Aggregate searchable items
   const allItems: SearchItem[] = [
     { id: 'sec-overview', title: 'Resumen Ejecutivo & Contexto', subtitle: 'Mobile Solutions POS en Windows Forms .NET', category: 'Módulos', sectionId: 'overview', tag: '[SYS.OVW]' },
-    { id: 'sec-sim', title: 'Terminal POS Interactiva en Vivo', subtitle: 'Simulador de escaneo, pesaje y ticket térmico', category: 'Módulos', sectionId: 'terminal-simulator', tag: '[SIM.POS]' },
-    { id: 'sec-hal-console', title: 'Consola de Telemetría COM & Hardware', subtitle: 'Pruebas de puertos serie, ESC/POS y balanza', category: 'Módulos', sectionId: 'hardware-console', tag: '[SIM.HAL]' },
     { id: 'sec-benchmarks', title: 'Matriz de Rendimiento & Benchmark', subtitle: 'Latencias <18ms, NGEN y SLAs de producción', category: 'Módulos', sectionId: 'benchmarks', tag: '[SYS.MET]' },
     { id: 'sec-deployment', title: 'Estrategias de Despliegue & NGEN', subtitle: 'InnoSetup, ClickOnce, precompilación nativa', category: 'Módulos', sectionId: 'deployment', tag: '[RES.DEP]' },
 

@@ -2,8 +2,6 @@ export type SectionId =
   | 'overview'
   | 'architecture'
   | 'hardware-hal'
-  | 'terminal-simulator'
-  | 'hardware-console'
   | 'data-resilience'
   | 'code-repository'
   | 'benchmarks'

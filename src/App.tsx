@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SectionId, POSCartItem } from './types';
-import { SAMPLE_POS_PRODUCTS } from './data/posArchitectureData';
+import { SectionId } from './types';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { SearchModal } from './components/SearchModal';
@@ -8,8 +7,6 @@ import { SearchModal } from './components/SearchModal';
 import { OverviewSection } from './components/sections/OverviewSection';
 import { ArchitectureSection } from './components/sections/ArchitectureSection';
 import { HardwareHalSection } from './components/sections/HardwareHalSection';
-import { TerminalSimulatorSection } from './components/sections/TerminalSimulatorSection';
-import { HardwareConsoleSection } from './components/sections/HardwareConsoleSection';
 import { DataResilienceSection } from './components/sections/DataResilienceSection';
 import { CodeRepositorySection } from './components/sections/CodeRepositorySection';
 import { DeploymentBenchmarksSection } from './components/sections/DeploymentBenchmarksSection';
@@ -18,8 +15,6 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<SectionId>('overview');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [onlineMode, setOnlineMode] = useState(true);
-  const [cart, setCart] = useState<POSCartItem[]>([SAMPLE_POS_PRODUCTS[0], SAMPLE_POS_PRODUCTS[1]]);
 
   // Global keyboard shortcut: Cmd+K / Ctrl+K
   useEffect(() => {
@@ -41,17 +36,6 @@ export default function App() {
         return <ArchitectureSection />;
       case 'hardware-hal':
         return <HardwareHalSection />;
-      case 'terminal-simulator':
-        return (
-          <TerminalSimulatorSection
-            onlineMode={onlineMode}
-            onToggleOnlineMode={() => setOnlineMode(prev => !prev)}
-            cart={cart}
-            setCart={setCart}
-          />
-        );
-      case 'hardware-console':
-        return <HardwareConsoleSection />;
       case 'data-resilience':
         return <DataResilienceSection />;
       case 'code-repository':
@@ -87,7 +71,7 @@ export default function App() {
         />
 
         {/* Central Content Canvas */}
-        <main className="flex-1 min-w-0 px-4 sm:px-8 lg:px-12 py-8 lg:ml-72 transition-all">
+        <main className="flex-1 min-w-0 px-4 sm:px-8 lg:px-12 py-8 lg:ml-[340px] transition-all">
           <div className="max-w-6xl mx-auto w-full">
             {renderActiveSection()}
           </div>

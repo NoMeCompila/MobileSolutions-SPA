@@ -2,8 +2,6 @@ import React from 'react';
 import {
   Layers,
   Cpu,
-  ShoppingCart,
-  Terminal,
   Database,
   Code,
   Activity,
@@ -25,9 +23,7 @@ interface NavGroup {
   items: {
     id: SectionId;
     title: string;
-    tag: string;
     icon: React.ReactNode;
-    badge?: string;
   }[];
 }
 
@@ -44,16 +40,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {
           id: 'overview',
           title: 'Resumen Ejecutivo',
-          tag: '[SYS.OVW]',
-          icon: <BookOpen className="w-4 h-4 text-[#00B4D8]" />,
-          badge: 'v4.8'
+          icon: <BookOpen className="w-5.5 h-5.5 text-[#00B4D8]" />
         },
         {
           id: 'benchmarks',
           title: 'Rendimiento & SLA',
-          tag: '[SYS.MET]',
-          icon: <Activity className="w-4 h-4 text-[#48CAE4]" />,
-          badge: '<18ms'
+          icon: <Activity className="w-5.5 h-5.5 text-[#48CAE4]" />
         }
       ]
     },
@@ -63,59 +55,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {
           id: 'architecture',
           title: 'Matriz Multicapa WinForms',
-          tag: '[ARC.LYR]',
-          icon: <Layers className="w-4 h-4 text-[#00B4D8]" />
+          icon: <Layers className="w-5.5 h-5.5 text-[#00B4D8]" />
         },
         {
           id: 'hardware-hal',
           title: 'HAL & Periféricos POS',
-          tag: '[HAL.ESC]',
-          icon: <Cpu className="w-4 h-4 text-[#58D6F1]" />,
-          badge: '6 Drivers'
+          icon: <Cpu className="w-5.5 h-5.5 text-[#58D6F1]" />
         },
         {
           id: 'data-resilience',
           title: 'Persistencia & Resiliencia',
-          tag: '[DAT.RES]',
-          icon: <Database className="w-4 h-4 text-[#0077B6]" />,
-          badge: 'WAL Mode'
+          icon: <Database className="w-5.5 h-5.5 text-[#0077B6]" />
         }
       ]
     },
     {
-      label: '03. SIMULADORES ACTIVOS',
-      items: [
-        {
-          id: 'terminal-simulator',
-          title: 'Terminal POS en Vivo',
-          tag: '[SIM.POS]',
-          icon: <ShoppingCart className="w-4 h-4 text-emerald-400" />,
-          badge: 'INTERACTIVO'
-        },
-        {
-          id: 'hardware-console',
-          title: 'Consola COM & Periféricos',
-          tag: '[SIM.HAL]',
-          icon: <Terminal className="w-4 h-4 text-amber-400" />,
-          badge: 'LIVE HEX'
-        }
-      ]
-    },
-    {
-      label: '04. CÓDIGO & DESPLIEGUE',
+      label: '03. CÓDIGO & DESPLIEGUE',
       items: [
         {
           id: 'code-repository',
           title: 'Inspector C# WinForms',
-          tag: '[COD.NET]',
-          icon: <Code className="w-4 h-4 text-[#94CCFF]" />,
-          badge: '5 Sources'
+          icon: <Code className="w-5.5 h-5.5 text-[#94CCFF]" />
         },
         {
           id: 'deployment',
           title: 'Despliegue & NGEN',
-          tag: '[RES.DEP]',
-          icon: <Rocket className="w-4 h-4 text-[#48CAE4]" />
+          icon: <Rocket className="w-5.5 h-5.5 text-[#48CAE4]" />
         }
       ]
     }
@@ -131,65 +96,54 @@ export const Sidebar: React.FC<SidebarProps> = ({
         />
       )}
 
-      {/* Sidebar Container (280px fixed on desktop) */}
+      {/* Sidebar Container (340px width to ensure full section text visibility) */}
       <aside
-        className={`fixed top-20 sm:top-24 bottom-0 left-0 z-40 w-72 bg-[#0A1128]/95 backdrop-blur-xl border-r border-[rgba(0,180,216,0.18)] transition-transform duration-200 flex flex-col ${isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-          }`}
+        className={`fixed top-20 sm:top-24 bottom-0 left-0 z-40 w-[340px] bg-[#0A1128]/95 backdrop-blur-xl border-r border-[rgba(0,180,216,0.22)] shadow-[4px_0_24px_rgba(0,0,0,0.35)] transition-transform duration-200 flex flex-col justify-between ${
+          isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        }`}
       >
-
         {/* Navigation Items */}
-        <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
-                    {
-                      navGroups.map((group, gIdx) => (
-                        <div key={gIdx} className="space-y-1.5">
-                          <div className="px-2 text-[10px] font-mono font-semibold tracking-wider text-[#48CAE4]/70">
-                            {group.label}
-                          </div>
-                          <div className="space-y-1">
-                            {group.items.map(item => {
-                              const isActive = activeSection === item.id;
-                              return (
-                                <button
-                                  key={item.id}
-                                  onClick={() => {
-                                    onSelectSection(item.id);
-                                    onCloseMobile();
-                                  }}
-                                  className={`w-full text-left px-2.5 py-2 rounded text-xs transition-all flex items-center justify-between group ${isActive
-                                    ? 'bg-[#00B4D8]/15 text-[#F8FAFC] border border-[#00B4D8]/50 shadow-[0_0_12px_rgba(0,180,216,0.25)]'
-                                    : 'text-slate-400 hover:text-slate-100 hover:bg-[#0E1B38]/60 border border-transparent'
-                                    }`}
-                                >
-                                  <div className="flex items-center gap-2.5 min-w-0">
-                                    <span className={`shrink-0 ${isActive ? 'text-[#00B4D8]' : 'text-slate-400 group-hover:text-[#48CAE4]'}`}>
-                                      {item.icon}
-                                    </span>
-                                    <span className="truncate font-sans font-medium">
-                                      {item.title}
-                                    </span>
-                                  </div>
+        <div className="flex-1 overflow-y-auto px-4 sm:px-5 py-6 sm:py-8 space-y-8">
+          {navGroups.map((group, gIdx) => (
+            <div key={gIdx} className="space-y-3">
+              {/* Category Header: Larger, bolder and clearer */}
+              <div className="px-2 pb-2 text-xs sm:text-[13px] font-mono font-extrabold tracking-wider text-[#00B4D8] uppercase border-b border-[rgba(0,180,216,0.18)]">
+                {group.label}
+              </div>
 
-                                  <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                                    <span className="text-[9px] font-mono text-[#00B4D8]/60">
-                                      {item.tag}
-                                    </span>
-                                    {item.badge && (
-                                      <span className={`px-1.5 py-0.2 rounded text-[9px] font-mono font-medium ${item.badge === 'INTERACTIVO'
-                                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 animate-pulse'
-                                        : 'bg-[#0E1B38] text-slate-300 border border-slate-700/60'
-                                        }`}>
-                                        {item.badge}
-                                      </span>
-                                    )}
-                                  </div>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-            ))}
-                </div>
-              </aside>
+              {/* Category Items */}
+              <div className="space-y-2">
+                {group.items.map(item => {
+                  const isActive = activeSection === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        onSelectSection(item.id);
+                        onCloseMobile();
+                      }}
+                      className={`w-full text-left px-3.5 py-3.5 rounded-xl transition-all flex items-center group cursor-pointer ${
+                        isActive
+                          ? 'bg-[#00B4D8]/20 text-white border border-[#00B4D8]/60 shadow-[0_0_16px_rgba(0,180,216,0.3)] font-semibold'
+                          : 'text-slate-300 hover:text-white hover:bg-[#0E1B38]/80 border border-transparent font-medium'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3.5 min-w-0 w-full">
+                        <span className={`shrink-0 transition-transform group-hover:scale-110 ${isActive ? 'text-[#00B4D8]' : 'text-slate-400 group-hover:text-[#48CAE4]'}`}>
+                          {item.icon}
+                        </span>
+                        <span className="font-sans text-[15px] sm:text-base leading-snug tracking-tight whitespace-nowrap">
+                          {item.title}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </aside>
     </>
-        );
+  );
 };

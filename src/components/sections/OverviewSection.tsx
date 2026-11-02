@@ -52,18 +52,18 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onSelectSectio
 
           <div className="pt-2 flex flex-wrap gap-3 font-mono text-xs">
             <button
-              onClick={() => onSelectSection('terminal-simulator')}
+              onClick={() => onSelectSection('architecture')}
               className="cyber-button-primary px-4 py-2.5 rounded flex items-center gap-2 shadow-lg cursor-pointer"
             >
-              <Zap className="w-4 h-4" />
-              <span>Probar Simulador Interactivo</span>
+              <Layers className="w-4 h-4 text-white" />
+              <span>Explorar Matriz Multicapa</span>
             </button>
             <button
-              onClick={() => onSelectSection('architecture')}
+              onClick={() => onSelectSection('benchmarks')}
               className="cyber-button-outline px-4 py-2.5 rounded flex items-center gap-2 cursor-pointer"
             >
-              <Layers className="w-4 h-4 text-[#00B4D8]" />
-              <span>Explorar Matriz Multicapa</span>
+              <TrendingUp className="w-4 h-4 text-[#00B4D8]" />
+              <span>Ver Métricas & SLA</span>
             </button>
           </div>
         </div>
