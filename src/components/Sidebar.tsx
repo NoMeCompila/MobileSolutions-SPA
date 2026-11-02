@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Layers,
   Database,
-  GraduationCap,
+  SquareCode,
   MonitorCheck
 } from 'lucide-react';
 import { SectionId } from '../types';
@@ -41,8 +41,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         },
         {
           id: 'academic-docs',
-          title: 'Documentos Académicos',
-          icon: <GraduationCap className="w-5.5 h-5.5 text-[#48CAE4]" />
+          title: 'Documentación y Desarrollo',
+          icon: <SquareCode className="w-5.5 h-5.5 text-[#48CAE4]" />
         }
       ]
     },

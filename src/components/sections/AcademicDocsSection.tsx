@@ -1,66 +1,36 @@
 import React from 'react';
-import { 
-  GraduationCap, 
-  FileText, 
-  ExternalLink, 
-  BookOpen, 
-  Trello, 
-  FileCode2, 
-  Wrench, 
-  Download, 
-  Github, 
-  Users, 
+import {
+  GraduationCap,
+  FileText,
+  ExternalLink,
+  BookOpen,
+  Trello,
+  FileCode2,
+  Wrench,
+  Download,
+  Github,
+  Users,
   CheckCircle2,
   Building2,
-  Calendar
+  Calendar,
+  Cloud
 } from 'lucide-react';
 
+interface AcademicDocument {
+  id: string;
+  title: string;
+  standard: string;
+  description: string;
+  badge: string;
+  badgeColor: string;
+  icon: React.ReactNode;
+  url: string;
+  actionLabel: string;
+}
+
 export const AcademicDocsSection: React.FC = () => {
-  const documents = [
-    {
-      id: 'ers',
-      title: 'Especificación de Requisitos (ERS)',
-      standard: 'ESTÁNDAR IEEE 830-1998',
-      description: 'Documento formal de Especificación de Requerimientos de Software que define el alcance, casos de uso, restricciones y requisitos funcionales y no funcionales del sistema.',
-      badge: 'OFICIAL // IEEE 830',
-      badgeColor: 'text-[#00B4D8] border-[#00B4D8]/30 bg-[#0077B6]/20',
-      icon: <FileText className="w-6 h-6 text-[#00B4D8]" />,
-      url: 'https://github.com/NoMeCompila/Taller-de-Programaci-n-2---2026---Grupo-97/raw/master/Documentacion/Especificaci%C3%B3n_de_Requerimientos_de_Software_(ERS).pdf',
-      actionLabel: 'Ver Documento ERS (PDF)'
-    },
-    {
-      id: 'notion',
-      title: 'Workspace de Proyecto en Notion',
-      standard: 'GESTIÓN & DOCUMENTACIÓN TÉCNICA',
-      description: 'Documentación viva del proyecto con actas de cátedra, especificaciones de módulos de venta y catálogo, y diagramas de flujo de datos.',
-      badge: 'WORKSPACE NOTION',
-      badgeColor: 'text-[#48CAE4] border-[#48CAE4]/30 bg-[#0A1128]',
-      icon: <BookOpen className="w-6 h-6 text-[#48CAE4]" />,
-      url: 'https://app.notion.com/p/3ca29f1da19b807aa1fbf49ea7b57e76?v=3ca29f1da19b8041b625000ca7394d52&source=copy_link',
-      actionLabel: 'Abrir Notion'
-    },
-    {
-      id: 'trello',
-      title: 'Tablero Ágil SCRUM en Trello',
-      standard: 'HISTORIAS DE USUARIO & BACKLOG',
-      description: 'Seguimiento ágil del ciclo de vida del software en sprints, división de tareas por capas (UI, BLL, DAL) y criterios de aceptación.',
-      badge: 'TABLERO SCRUM',
-      badgeColor: 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
-      icon: <Trello className="w-6 h-6 text-emerald-400" />,
-      url: 'https://trello.com/b/IpIYZi7e/%F0%9F%96%A5%EF%B8%8F-mobile-solutions',
-      actionLabel: 'Ver Tablero Trello'
-    },
-    {
-      id: 'manual-user',
-      title: 'Manual de Usuario Final',
-      standard: 'GUÍA OPERATIVA DEL SISTEMA',
-      description: 'Instrucciones detalladas de uso para cajeros, vendedores y administradores: operaciones de venta, gestión de stock, arqueos y reportes.',
-      badge: 'MANUAL OPERATIVO',
-      badgeColor: 'text-amber-400 border-amber-500/30 bg-amber-500/10',
-      icon: <FileCode2 className="w-6 h-6 text-amber-400" />,
-      url: 'https://docs.google.com/document/d/1gMv7HCl5TO2FgIHZoueDL4V_0zivxB1sFEEXmL62ta4/edit?usp=sharing',
-      actionLabel: 'Ver Manual de Usuario'
-    },
+  // Sección 1: Recursos Oficiales del Proyecto
+  const officialResources: AcademicDocument[] = [
     {
       id: 'manual-tech',
       title: 'Documentación Técnica para Devs',
@@ -82,6 +52,54 @@ export const AcademicDocsSection: React.FC = () => {
       icon: <Wrench className="w-6 h-6 text-violet-400" />,
       url: 'https://docs.google.com/document/d/1fjoNUZiVWfsCgXLFiN6v5X17Gk1FBvZad0ekbCi2krQ/edit?usp=sharing',
       actionLabel: 'Ver Guía de Instalación'
+    },
+    {
+      id: 'manual-user',
+      title: 'Manual de Usuario Final',
+      standard: 'GUÍA OPERATIVA DEL SISTEMA',
+      description: 'Instrucciones detalladas de uso para cajeros, vendedores y administradores: operaciones de venta, gestión de stock, arqueos y reportes.',
+      badge: 'MANUAL OPERATIVO',
+      badgeColor: 'text-amber-400 border-amber-500/30 bg-amber-500/10',
+      icon: <FileCode2 className="w-6 h-6 text-amber-400" />,
+      url: 'https://docs.google.com/document/d/1gMv7HCl5TO2FgIHZoueDL4V_0zivxB1sFEEXmL62ta4/edit?usp=sharing',
+      actionLabel: 'Ver Manual de Usuario'
+    },
+    {
+      id: 'ers',
+      title: 'Especificación de Requisitos (ERS)',
+      standard: 'ESTÁNDAR IEEE 830-1998',
+      description: 'Documento formal de Especificación de Requerimientos de Software que define el alcance, casos de uso, restricciones y requisitos funcionales y no funcionales del sistema.',
+      badge: 'OFICIAL // IEEE 830',
+      badgeColor: 'text-[#00B4D8] border-[#00B4D8]/30 bg-[#0077B6]/20',
+      icon: <FileText className="w-6 h-6 text-[#00B4D8]" />,
+      url: 'https://docs.google.com/document/d/1Ix_NaSmwOzHiYy1GdnkbpVb9z7cvg65Qysf0rQMI2uc/edit?usp=sharing',
+      actionLabel: 'Ver Documento ERS (PDF)'
+    }
+  ];
+
+  // Sección 2: Herramientas de Desarrollo Remoto
+  const remoteDevTools: AcademicDocument[] = [
+    {
+      id: 'notion',
+      title: 'Workspace de Proyecto en Notion',
+      standard: 'GESTIÓN & DOCUMENTACIÓN TÉCNICA',
+      description: 'Documentación viva del proyecto con actas de cátedra, especificaciones de módulos de venta y catálogo, y diagramas de flujo de datos.',
+      badge: 'WORKSPACE NOTION',
+      badgeColor: 'text-[#48CAE4] border-[#48CAE4]/30 bg-[#0A1128]',
+      icon: <BookOpen className="w-6 h-6 text-[#48CAE4]" />,
+      url: 'https://app.notion.com/p/3ca29f1da19b807aa1fbf49ea7b57e76?v=3ca29f1da19b8041b625000ca7394d52&source=copy_link',
+      actionLabel: 'Abrir Notion'
+    },
+    {
+      id: 'trello',
+      title: 'Tablero Ágil SCRUM en Trello',
+      standard: 'HISTORIAS DE USUARIO & BACKLOG',
+      description: 'Seguimiento ágil del ciclo de vida del software en sprints, división de tareas por capas (UI, BLL, DAL) y criterios de aceptación.',
+      badge: 'TABLERO SCRUM',
+      badgeColor: 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
+      icon: <Trello className="w-6 h-6 text-emerald-400" />,
+      url: 'https://trello.com/b/IpIYZi7e/%F0%9F%96%A5%EF%B8%8F-mobile-solutions',
+      actionLabel: 'Ver Tablero Trello'
     },
     {
       id: 'installer',
@@ -107,6 +125,49 @@ export const AcademicDocsSection: React.FC = () => {
     }
   ];
 
+  const renderDocumentCard = (doc: AcademicDocument) => (
+    <div
+      key={doc.id}
+      className="p-5 sm:p-6 rounded-xl border border-[rgba(0,180,216,0.22)] bg-[#0A1128]/80 hover:bg-[#0E1B38] hover:border-[#00B4D8]/50 transition-all flex flex-col justify-between group shadow-lg"
+    >
+      <div className="space-y-3">
+        <div className="flex items-start justify-between gap-3">
+          <div className="p-2.5 rounded-lg bg-[#060D24] border border-[#00B4D8]/30 group-hover:scale-105 transition-transform">
+            {doc.icon}
+          </div>
+          <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded border ${doc.badgeColor}`}>
+            {doc.badge}
+          </span>
+        </div>
+
+        <div>
+          <h3 className="font-display text-base sm:text-lg font-bold text-white group-hover:text-[#00B4D8] transition-colors">
+            {doc.title}
+          </h3>
+          <div className="text-[11px] font-mono text-[#00B4D8]/70 mt-0.5">
+            {doc.standard}
+          </div>
+        </div>
+
+        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+          {doc.description}
+        </p>
+      </div>
+
+      <div className="pt-4 mt-4 border-t border-[rgba(0,180,216,0.12)]">
+        <a
+          href={doc.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#0077B6]/25 hover:bg-[#00B4D8]/30 border border-[#00B4D8]/40 text-xs font-mono text-[#48CAE4] hover:text-white transition-all font-semibold w-full justify-center group-hover:shadow-[0_0_12px_rgba(0,180,216,0.2)]"
+        >
+          <span>{doc.actionLabel}</span>
+          <ExternalLink className="w-3.5 h-3.5 text-[#00B4D8] group-hover:translate-x-0.5 transition-transform" />
+        </a>
+      </div>
+    </div>
+  );
+
   return (
     <div className="space-y-10 animate-in fade-in duration-200">
       {/* Header Institucional y Académico */}
@@ -126,7 +187,7 @@ export const AcademicDocsSection: React.FC = () => {
 
         <div>
           <h1 className="font-display text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Documentos Académicos & Requerimientos
+            Documentación y Desarrollo
           </h1>
           <p className="text-slate-300 text-sm sm:text-base mt-2 max-w-3xl leading-relaxed">
             Repositorio integral de especificaciones formales, manuales operativos, tablero ágil y recursos técnicos elaborados para la cátedra <strong>Taller de Programación II</strong> (Licenciatura en Sistemas de Información).
@@ -149,62 +210,39 @@ export const AcademicDocsSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Grid de Documentos y Recursos */}
+      {/* Sección 1: Recursos Oficiales del Proyecto */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between border-b border-[rgba(0,180,216,0.18)] pb-3">
           <h2 className="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-[#00B4D8]" />
             <span>Recursos Oficiales del Proyecto</span>
           </h2>
-          <span className="text-xs font-mono text-slate-400">8 DOCUMENTOS ENLAZADOS</span>
+          <span className="text-xs font-mono text-[#00B4D8] bg-[#0077B6]/20 px-2.5 py-1 rounded border border-[#00B4D8]/30">
+            4 DOCUMENTOS TÉCNICOS
+          </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {documents.map(doc => (
-            <div 
-              key={doc.id}
-              className="p-5 sm:p-6 rounded-xl border border-[rgba(0,180,216,0.22)] bg-[#0A1128]/80 hover:bg-[#0E1B38] hover:border-[#00B4D8]/50 transition-all flex flex-col justify-between group shadow-lg"
-            >
-              <div className="space-y-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="p-2.5 rounded-lg bg-[#060D24] border border-[#00B4D8]/30 group-hover:scale-105 transition-transform">
-                    {doc.icon}
-                  </div>
-                  <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded border ${doc.badgeColor}`}>
-                    {doc.badge}
-                  </span>
-                </div>
+          {officialResources.map(renderDocumentCard)}
+        </div>
+      </div>
 
-                <div>
-                  <h3 className="font-display text-base sm:text-lg font-bold text-white group-hover:text-[#00B4D8] transition-colors">
-                    {doc.title}
-                  </h3>
-                  <div className="text-[11px] font-mono text-[#00B4D8]/70 mt-0.5">
-                    {doc.standard}
-                  </div>
-                </div>
+      {/* Sección 2: Herramientas de Desarrollo Remoto */}
+      <div className="space-y-4 pt-2">
+        <div className="flex items-center justify-between border-b border-[rgba(0,180,216,0.18)] pb-3">
+          <h2 className="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+            <Cloud className="w-5 h-5 text-[#48CAE4]" />
+            <span>Herramientas de Desarrollo Remoto</span>
+          </h2>
+          <span className="text-xs font-mono text-[#48CAE4] bg-[#0E1B38] px-2.5 py-1 rounded border border-[#48CAE4]/30">
+            4 ENTORNOS & PLATAFORMAS
+          </span>
+        </div>
 
-                <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                  {doc.description}
-                </p>
-              </div>
-
-              <div className="pt-4 mt-4 border-t border-[rgba(0,180,216,0.12)]">
-                <a
-                  href={doc.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#0077B6]/25 hover:bg-[#00B4D8]/30 border border-[#00B4D8]/40 text-xs font-mono text-[#48CAE4] hover:text-white transition-all font-semibold w-full justify-center group-hover:shadow-[0_0_12px_rgba(0,180,216,0.2)]"
-                >
-                  <span>{doc.actionLabel}</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-[#00B4D8] group-hover:translate-x-0.5 transition-transform" />
-                </a>
-              </div>
-            </div>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {remoteDevTools.map(renderDocumentCard)}
         </div>
       </div>
     </div>
   );
 };
-
