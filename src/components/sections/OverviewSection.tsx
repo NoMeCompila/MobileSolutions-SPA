@@ -11,7 +11,8 @@ import {
   TrendingUp,
   Server,
   ArrowRight,
-  HardDrive
+  HardDrive,
+  GraduationCap
 } from 'lucide-react';
 import { SYSTEM_META } from '../../data/posArchitectureData';
 import { SectionId } from '../../types';
@@ -56,14 +57,14 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onSelectSectio
               className="cyber-button-primary px-4 py-2.5 rounded flex items-center gap-2 shadow-lg cursor-pointer"
             >
               <Layers className="w-4 h-4 text-white" />
-              <span>Explorar Matriz Multicapa</span>
+              <span>Explorar Arquitectura de 3 Capas</span>
             </button>
             <button
-              onClick={() => onSelectSection('benchmarks')}
+              onClick={() => onSelectSection('academic-docs')}
               className="cyber-button-outline px-4 py-2.5 rounded flex items-center gap-2 cursor-pointer"
             >
-              <TrendingUp className="w-4 h-4 text-[#00B4D8]" />
-              <span>Ver Métricas & SLA</span>
+              <GraduationCap className="w-4 h-4 text-[#00B4D8]" />
+              <span>Ver Documentos Académicos</span>
             </button>
           </div>
         </div>

@@ -1,12 +1,10 @@
 import React from 'react';
 import {
   Layers,
-  Cpu,
   Database,
   Code,
-  Activity,
-  Rocket,
-  BookOpen
+  GraduationCap,
+  MonitorCheck
 } from 'lucide-react';
 import { SectionId } from '../types';
 
@@ -39,13 +37,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       items: [
         {
           id: 'overview',
-          title: 'Resumen Ejecutivo',
-          icon: <BookOpen className="w-5.5 h-5.5 text-[#00B4D8]" />
+          title: 'Resumen Del Producto',
+          icon: <MonitorCheck className="w-5.5 h-5.5 text-[#00B4D8]" />
         },
         {
-          id: 'benchmarks',
-          title: 'Rendimiento & SLA',
-          icon: <Activity className="w-5.5 h-5.5 text-[#48CAE4]" />
+          id: 'academic-docs',
+          title: 'Documentos Académicos',
+          icon: <GraduationCap className="w-5.5 h-5.5 text-[#48CAE4]" />
         }
       ]
     },
@@ -54,33 +52,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
       items: [
         {
           id: 'architecture',
-          title: 'Matriz Multicapa WinForms',
+          title: 'Arquitectura de 3 Capas',
           icon: <Layers className="w-5.5 h-5.5 text-[#00B4D8]" />
         },
         {
-          id: 'hardware-hal',
-          title: 'HAL & Periféricos POS',
-          icon: <Cpu className="w-5.5 h-5.5 text-[#58D6F1]" />
-        },
-        {
           id: 'data-resilience',
-          title: 'Persistencia & Resiliencia',
+          title: 'Modelo de Base de Datos',
           icon: <Database className="w-5.5 h-5.5 text-[#0077B6]" />
         }
       ]
     },
     {
-      label: '03. CÓDIGO & DESPLIEGUE',
+      label: '03. CÓDIGO & DESARROLLO',
       items: [
         {
           id: 'code-repository',
-          title: 'Inspector C# WinForms',
+          title: 'Código y Desarrollo',
           icon: <Code className="w-5.5 h-5.5 text-[#94CCFF]" />
-        },
-        {
-          id: 'deployment',
-          title: 'Despliegue & NGEN',
-          icon: <Rocket className="w-5.5 h-5.5 text-[#48CAE4]" />
         }
       ]
     }
@@ -98,9 +86,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Sidebar Container (340px width to ensure full section text visibility) */}
       <aside
-        className={`fixed top-20 sm:top-24 bottom-0 left-0 z-40 w-[340px] bg-[#0A1128]/95 backdrop-blur-xl border-r border-[rgba(0,180,216,0.22)] shadow-[4px_0_24px_rgba(0,0,0,0.35)] transition-transform duration-200 flex flex-col justify-between ${
-          isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        }`}
+        className={`fixed top-20 sm:top-24 bottom-0 left-0 z-40 w-[340px] bg-[#0A1128]/95 backdrop-blur-xl border-r border-[rgba(0,180,216,0.22)] shadow-[4px_0_24px_rgba(0,0,0,0.35)] transition-transform duration-200 flex flex-col justify-between ${isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+          }`}
       >
         {/* Navigation Items */}
         <div className="flex-1 overflow-y-auto px-4 sm:px-5 py-6 sm:py-8 space-y-8">
@@ -122,11 +109,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         onSelectSection(item.id);
                         onCloseMobile();
                       }}
-                      className={`w-full text-left px-3.5 py-3.5 rounded-xl transition-all flex items-center group cursor-pointer ${
-                        isActive
-                          ? 'bg-[#00B4D8]/20 text-white border border-[#00B4D8]/60 shadow-[0_0_16px_rgba(0,180,216,0.3)] font-semibold'
-                          : 'text-slate-300 hover:text-white hover:bg-[#0E1B38]/80 border border-transparent font-medium'
-                      }`}
+                      className={`w-full text-left px-3.5 py-3.5 rounded-xl transition-all flex items-center group cursor-pointer ${isActive
+                        ? 'bg-[#00B4D8]/20 text-white border border-[#00B4D8]/60 shadow-[0_0_16px_rgba(0,180,216,0.3)] font-semibold'
+                        : 'text-slate-300 hover:text-white hover:bg-[#0E1B38]/80 border border-transparent font-medium'
+                        }`}
                     >
                       <div className="flex items-center gap-3.5 min-w-0 w-full">
                         <span className={`shrink-0 transition-transform group-hover:scale-110 ${isActive ? 'text-[#00B4D8]' : 'text-slate-400 group-hover:text-[#48CAE4]'}`}>

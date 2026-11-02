@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, X, Cpu, Server, Database, Code, Terminal, ArrowRight } from 'lucide-react';
-import { ARCHITECTURE_LAYERS, HARDWARE_PERIPHERALS, DATABASE_TABLES, CODE_SNIPPETS } from '../data/posArchitectureData';
+import { ARCHITECTURE_LAYERS, DATABASE_TABLES, CODE_SNIPPETS } from '../data/posArchitectureData';
 import { SectionId } from '../types';
 
 interface SearchModalProps {
@@ -36,9 +36,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({
 
   // Aggregate searchable items
   const allItems: SearchItem[] = [
-    { id: 'sec-overview', title: 'Resumen Ejecutivo & Contexto', subtitle: 'Mobile Solutions POS en Windows Forms .NET', category: 'Módulos', sectionId: 'overview', tag: '[SYS.OVW]' },
-    { id: 'sec-benchmarks', title: 'Matriz de Rendimiento & Benchmark', subtitle: 'Latencias <18ms, NGEN y SLAs de producción', category: 'Módulos', sectionId: 'benchmarks', tag: '[SYS.MET]' },
-    { id: 'sec-deployment', title: 'Estrategias de Despliegue & NGEN', subtitle: 'InnoSetup, ClickOnce, precompilación nativa', category: 'Módulos', sectionId: 'deployment', tag: '[RES.DEP]' },
+    { id: 'sec-overview', title: 'Resumen Del Producto & Contexto', subtitle: 'Mobile Solutions POS en Windows Forms .NET', category: 'Módulos', sectionId: 'overview', tag: '[SYS.OVW]' },
+    { id: 'sec-academic-docs', title: 'Documentos Académicos & Requerimientos', subtitle: 'Especificación ERS IEEE 830, Notion, Trello y manuales', category: 'Módulos', sectionId: 'academic-docs', tag: '[DOC.ACA]' },
 
     ...ARCHITECTURE_LAYERS.map(l => ({
       id: l.id,
@@ -47,15 +46,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({
       category: 'Arquitectura' as const,
       sectionId: 'architecture' as SectionId,
       tag: l.code
-    })),
-
-    ...HARDWARE_PERIPHERALS.map(h => ({
-      id: h.id,
-      title: h.name,
-      subtitle: `${h.protocol} - Puerto ${h.interfacePort}`,
-      category: 'Hardware' as const,
-      sectionId: 'hardware-hal' as SectionId,
-      tag: `[${h.driverType}]`
     })),
 
     ...DATABASE_TABLES.map(t => ({

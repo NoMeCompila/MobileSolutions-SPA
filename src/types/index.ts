@@ -1,11 +1,9 @@
 export type SectionId = 
   | 'overview'
+  | 'academic-docs'
   | 'architecture'
-  | 'hardware-hal'
   | 'data-resilience'
-  | 'code-repository'
-  | 'benchmarks'
-  | 'deployment';
+  | 'code-repository';
 
 export interface ArchitectureLayer {
   id: string;

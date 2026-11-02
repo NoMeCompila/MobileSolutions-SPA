@@ -5,11 +5,10 @@ import { Sidebar } from './components/Sidebar';
 import { SearchModal } from './components/SearchModal';
 
 import { OverviewSection } from './components/sections/OverviewSection';
+import { AcademicDocsSection } from './components/sections/AcademicDocsSection';
 import { ArchitectureSection } from './components/sections/ArchitectureSection';
-import { HardwareHalSection } from './components/sections/HardwareHalSection';
 import { DataResilienceSection } from './components/sections/DataResilienceSection';
 import { CodeRepositorySection } from './components/sections/CodeRepositorySection';
-import { DeploymentBenchmarksSection } from './components/sections/DeploymentBenchmarksSection';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState<SectionId>('overview');
@@ -32,18 +31,14 @@ export default function App() {
     switch (activeSection) {
       case 'overview':
         return <OverviewSection onSelectSection={setActiveSection} />;
+      case 'academic-docs':
+        return <AcademicDocsSection />;
       case 'architecture':
         return <ArchitectureSection />;
-      case 'hardware-hal':
-        return <HardwareHalSection />;
       case 'data-resilience':
         return <DataResilienceSection />;
       case 'code-repository':
         return <CodeRepositorySection />;
-      case 'benchmarks':
-        return <DeploymentBenchmarksSection />;
-      case 'deployment':
-        return <DeploymentBenchmarksSection />;
       default:
         return <OverviewSection onSelectSection={setActiveSection} />;
     }
