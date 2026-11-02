@@ -118,6 +118,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
           ))}
         </div>
+
+        {/* Footer */}
+        <div className="p-4 border-t border-[rgba(0,180,216,0.18)] bg-[#070D1F]/90">
+          <div className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg bg-[#060D24]/80 border border-[rgba(0,180,216,0.18)]">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping shrink-0" />
+            <div className="text-[11px] font-mono text-slate-300 leading-snug">
+              <span className="text-[#48CAE4] font-semibold">Psionic Software</span> &copy; 2026
+              <span className="block text-[10.5px] text-slate-400 font-sans">Todos los derechos reservados</span>
+            </div>
+          </div>
+        </div>
       </aside>
     </>
   );
