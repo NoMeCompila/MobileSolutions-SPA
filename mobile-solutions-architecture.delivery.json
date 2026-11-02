@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "812d9133-8a7f-4245-a705-3afe903e3acf",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\architecture-mobile-solutions-20261101-212400\\candidate.json",
+  "output": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\mobile-solutions-architecture.html",
+  "specification": {
+    "sha256": "251c9ced6c23d1e4aabb01c965de7f68780508a27e413ffb0699126a631ddf29",
+    "bytes": 11470
+  },
+  "artifact": {
+    "sha256": "436c37d6ac95875b5ced74e60405e0b83f607bd423f482329e2f313b8db6c788",
+    "bytes": 869357
+  }
+}

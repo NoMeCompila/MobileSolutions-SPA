@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Mobile Solutions POS - 3-Layer Architecture",
+    "output": "mobile-solutions-architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/NoMeCompila/Taller-de-Programaci-n-2---2026---Grupo-97",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "0bf15e8a4ffe28e1b65a4b91474044cbedb299b0"
+    },
+    "locale": "en"
+  },
+  "components": [
+    {
+      "id": "ui_forms",
+      "type": "frontend",
+      "label": "Desktop Shell & Nav",
+      "sublabel": "LoginForm & MainForm",
+      "tag": "MaterialSkin.2",
+      "pos": [50, 60],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.UILayer/MainForm.cs", "line": 11, "end_line": 60, "label": "MainForm" },
+        { "path": "MobileSolutions.UILayer/LoginForm.cs", "line": 9, "end_line": 55, "label": "LoginForm" }
+      ]
+    },
+    {
+      "id": "ui_views",
+      "type": "frontend",
+      "label": "Modular View Controls",
+      "sublabel": "SaleView, ProductView",
+      "tag": "WinForms Controls",
+      "pos": [50, 200],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.UILayer/ControlViews/SaleView.cs", "line": 17, "end_line": 75, "label": "SaleView" },
+        { "path": "MobileSolutions.UILayer/ControlViews/ProductView.cs", "line": 15, "end_line": 65, "label": "ProductView" }
+      ]
+    },
+    {
+      "id": "ui_charts",
+      "type": "frontend",
+      "label": "Analytics & Charts",
+      "sublabel": "Manager & Seller Reports",
+      "tag": "LiveCharts 0.9.7",
+      "pos": [50, 340],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.UILayer/ControlViews/ManagerReportControl.cs", "line": 24, "end_line": 70, "label": "ManagerReportControl" }
+      ]
+    },
+    {
+      "id": "bll_auth_sec",
+      "type": "security",
+      "label": "Auth & Session Core",
+      "sublabel": "UserService & Session",
+      "tag": "SHA-256 & RBAC",
+      "pos": [320, 60],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.BusinessLayer/UserService.cs", "line": 18, "end_line": 65, "label": "UserService" },
+        { "path": "MobileSolutions.BusinessLayer/CurrentSession.cs", "line": 8, "end_line": 45, "label": "CurrentSession" }
+      ]
+    },
+    {
+      "id": "bll_mail_client",
+      "type": "backend",
+      "label": "SMTP Dispatcher",
+      "sublabel": "PasswordReset (OTP)",
+      "tag": "MailKit 4.18.1",
+      "pos": [590, 60],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.BusinessLayer/PasswordResetService.cs", "line": 14, "end_line": 65, "label": "PasswordResetService" }
+      ]
+    },
+    {
+      "id": "bll_sales_inv",
+      "type": "backend",
+      "label": "Sales & Catalog Core",
+      "sublabel": "Sale & Product Services",
+      "tag": "Stock & Rules",
+      "pos": [320, 200],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.BusinessLayer/SaleService.cs", "line": 9, "end_line": 60, "label": "SaleService" },
+        { "path": "MobileSolutions.BusinessLayer/ProductService.cs", "line": 8, "end_line": 55, "label": "ProductService" }
+      ]
+    },
+    {
+      "id": "bll_reports_ticket",
+      "type": "backend",
+      "label": "Reports & Ticket Engine",
+      "sublabel": "Ticket & Audit Services",
+      "tag": "HTML Tickets & Audit",
+      "pos": [320, 340],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.BusinessLayer/TicketReportService.cs", "line": 27, "end_line": 70, "label": "TicketReportService" },
+        { "path": "MobileSolutions.BusinessLayer/AuditService.cs", "line": 9, "end_line": 45, "label": "AuditService" }
+      ]
+    },
+    {
+      "id": "dal_repositories",
+      "type": "database",
+      "label": "ADO.NET Repositories",
+      "sublabel": "SaleDal, ProductDal, User",
+      "tag": "Stored Procedures",
+      "pos": [830, 200],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.DataLayer/SaleDal.cs", "line": 9, "end_line": 65, "label": "SaleDal" },
+        { "path": "MobileSolutions.DataLayer/UserDal.cs", "line": 9, "end_line": 55, "label": "UserDal" }
+      ]
+    },
+    {
+      "id": "dal_db_conn",
+      "type": "database",
+      "label": "Database Connection",
+      "sublabel": "DatabaseConnection Pool",
+      "tag": "SqlClient 7.0.2",
+      "pos": [830, 340],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.DataLayer/DatabaseConnection.cs", "line": 6, "end_line": 45, "label": "DatabaseConnection" }
+      ]
+    },
+    {
+      "id": "dal_initializer",
+      "type": "database",
+      "label": "Database Initializer",
+      "sublabel": "LocalDB Seed & DDL",
+      "tag": "Schema Bootstrap",
+      "pos": [830, 480],
+      "size": [165, 64],
+      "sources": [
+        { "path": "MobileSolutions.DataLayer/DatabaseInitializer.cs", "line": 15, "end_line": 65, "label": "DatabaseInitializer" }
+      ]
+    },
+    {
+      "id": "ext_sql_server",
+      "type": "external",
+      "label": "Microsoft SQL Server",
+      "sublabel": "MobileSolutionsDB :1433",
+      "tag": "Relational Storage",
+      "pos": [1070, 340],
+      "size": [165, 64]
+    },
+    {
+      "id": "ext_smtp_relay",
+      "type": "external",
+      "label": "External SMTP Relay",
+      "sublabel": "smtp.gmail.com:587 (TLS)",
+      "tag": "Cloud Mail Gateway",
+      "pos": [1070, 60],
+      "size": [165, 64]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Presentation Layer (UiLayer) - User Experience",
+      "wraps": ["ui_forms", "ui_views", "ui_charts"]
+    },
+    {
+      "kind": "region",
+      "label": "Business Logic Layer (BusinessLayer) - Domain Services",
+      "wraps": ["bll_auth_sec", "bll_mail_client", "bll_sales_inv", "bll_reports_ticket"]
+    },
+    {
+      "kind": "region",
+      "label": "Data Access Layer (DataLayer) - Persistence & DAL",
+      "wraps": ["dal_repositories", "dal_db_conn", "dal_initializer"]
+    },
+    {
+      "kind": "security-group",
+      "label": "External Infrastructure & Network Boundary",
+      "wraps": ["ext_sql_server", "ext_smtp_relay"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "forms-to-views",
+      "from": "ui_forms",
+      "to": "ui_views",
+      "label": "Embeds Views",
+      "variant": "default"
+    },
+    {
+      "id": "views-to-charts",
+      "from": "ui_views",
+      "to": "ui_charts",
+      "label": "Binds Series",
+      "variant": "default"
+    },
+    {
+      "id": "forms-to-auth",
+      "from": "ui_forms",
+      "to": "bll_auth_sec",
+      "label": "Login & RBAC",
+      "variant": "security"
+    },
+    {
+      "id": "auth-to-mail",
+      "from": "bll_auth_sec",
+      "to": "bll_mail_client",
+      "label": "Dispatches OTP",
+      "variant": "security",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "mail-to-smtp",
+      "from": "bll_mail_client",
+      "to": "ext_smtp_relay",
+      "label": "SMTP TLS :587",
+      "variant": "emphasis"
+    },
+    {
+      "id": "views-to-sales",
+      "from": "ui_views",
+      "to": "bll_sales_inv",
+      "label": "POS Orders",
+      "variant": "emphasis"
+    },
+    {
+      "id": "charts-to-reports",
+      "from": "ui_charts",
+      "to": "bll_reports_ticket",
+      "label": "Metrics Query",
+      "variant": "default"
+    },
+    {
+      "id": "sales-to-dal",
+      "from": "bll_sales_inv",
+      "to": "dal_repositories",
+      "label": "Transactional Stock",
+      "variant": "emphasis"
+    },
+    {
+      "id": "auth-to-dal",
+      "from": "bll_auth_sec",
+      "to": "dal_repositories",
+      "label": "User & Auth CRUD",
+      "variant": "security"
+    },
+    {
+      "id": "reports-to-conn",
+      "from": "bll_reports_ticket",
+      "to": "dal_db_conn",
+      "label": "Audit & Metrics SQL",
+      "variant": "default"
+    },
+    {
+      "id": "repos-to-conn",
+      "from": "dal_repositories",
+      "to": "dal_db_conn",
+      "label": "Acquires Conn",
+      "variant": "default"
+    },
+    {
+      "id": "init-to-conn",
+      "from": "dal_initializer",
+      "to": "dal_db_conn",
+      "label": "Seed & DDL",
+      "variant": "dashed"
+    },
+    {
+      "id": "conn-to-sql",
+      "from": "dal_db_conn",
+      "to": "ext_sql_server",
+      "label": "TDS :1433",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Presentation Layer & Desktop UX",
+      "items": [
+        "Framework: .NET 10 Windows Forms (net10.0-windows) running in SystemAware DPI mode.",
+        "MaterialSkin.2 (v2.3.1): Enforces cohesive dark mode theming, MaterialForm base classes, and responsive tab drawers.",
+        "FontAwesome.Sharp (v6.6.0): Provides vector iconography for navigation tabs, action buttons, and status indicators.",
+        "LiveCharts (v0.9.7 / WinForms & Wpf): Renders interactive Cartesian and Pie analytics for manager and seller dashboards.",
+        "Role-Based Access Control (RBAC): Dynamically filters drawer navigation and view permissions (Admin, Gerente, Vendedor)."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Business Logic & Domain Services",
+      "items": [
+        "Domain Workflows: SaleService coordinates multi-item POS sales, atomic stock deductions, and total calculations.",
+        "Authentication & Security: UserService enforces SHA-256 password hashing and role validation against CurrentSession state.",
+        "MailKit & MimeKit (v4.18.1): PasswordResetService dispatches 6-digit cryptographic OTP tokens over TLS (smtp.gmail.com:587).",
+        "Thermal Ticket Generation: TicketReportService parses ticketSample.html to produce thermal POS receipt outputs.",
+        "Audit & Governance: AuditService logs all sensitive events, user alterations, price modifications, and logins."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Data Access & SQL Persistence",
+      "items": [
+        "Microsoft.Data.SqlClient (v7.0.2): Manages high-performance ADO.NET connection pooling and command executions.",
+        "DatabaseConnection: Configures connection strings targeting (localdb)\\MSSQLLocalDB with TrustServerCertificate=True.",
+        "DatabaseInitializer: Automated LocalDB provisioning on startup, restoring seed backups or executing DDL scripts.",
+        "Stored Procedure Architecture: 100% of CRUD, filtering, and reporting is encapsulated in optimized T-SQL Stored Procedures.",
+        "Table-Valued Parameters (TVP): SaleDal transmits complex shopping cart items to SQL Server in a single atomic transaction."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Abstractions, Dependencies & Trust Boundaries",
+      "items": [
+        "3 Abstraction Tiers: Desktop Presentation (WinForms/MaterialSkin) -> Domain Logic (Services/Validation) -> Data Persistence (ADO.NET/SPs).",
+        "Strict Dependency Flow: Presentation references BLL; BLL references DAL; DAL references Microsoft.Data.SqlClient; zero circular references.",
+        "Client Trust Boundary: UI controls only hold in-memory session tokens (CurrentSession) and never query the database directly.",
+        "Database Trust Boundary: SQL Server isolates business data behind stored procedures and parameterized commands, mitigating SQL injection.",
+        "External Cloud Boundary: Encrypted SMTP relay communications isolate email delivery outside the local application network."
+      ]
+    }
+  ]
+}
