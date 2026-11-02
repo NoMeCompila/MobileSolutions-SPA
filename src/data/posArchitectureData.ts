@@ -651,90 +651,183 @@ namespace MobileSolutions.SyncService
 
 export const DATABASE_TABLES: DatabaseTable[] = [
   {
-    name: 'Ventas_Transacciones',
-    engine: 'Both',
-    description: 'Cabecera transaccional de cada ticket de venta generado en la caja.',
-    primaryKey: 'VentaID (BIGINT en SQL Server / INTEGER en SQLite)',
+    name: 'Profile',
+    engine: 'SQL Server',
+    description: 'Tabla de perfiles y roles de usuario para el control de acceso basado en roles (RBAC: Administrador, Vendedor, Gerente).',
+    primaryKey: 'profile_id',
     columns: [
-      { name: 'VentaID', type: 'BIGINT / INTEGER', nullable: false, description: 'Identificador secuencial de la venta' },
-      { name: 'VentaGuid', type: 'UNIQUEIDENTIFIER / TEXT', nullable: false, description: 'GUID único global de la transacción' },
-      { name: 'TerminalID', type: 'NVARCHAR(16) / TEXT', nullable: false, description: 'Identificador físico de la caja (ej. POS-01)' },
-      { name: 'CajaSesionID', type: 'BIGINT / INTEGER', nullable: false, description: 'Referencia a la sesión o turno de cajero' },
-      { name: 'CajeroUsuarioID', type: 'INT / INTEGER', nullable: false, description: 'Usuario que firmó la transacción' },
-      { name: 'Subtotal', type: 'DECIMAL(18,4) / REAL', nullable: false, description: 'Monto antes de gravámenes y promociones' },
-      { name: 'DescuentoTotal', type: 'DECIMAL(18,4) / REAL', nullable: false, description: 'Descuentos acumulados aplicados' },
-      { name: 'ImpuestoIVA', type: 'DECIMAL(18,4) / REAL', nullable: false, description: 'Total de IVA 16% calculado' },
-      { name: 'TotalGeneral', type: 'DECIMAL(18,4) / REAL', nullable: false, description: 'Monto final cobrado al cliente' },
-      { name: 'Estado', type: 'TINYINT / INTEGER', nullable: false, description: '1: Pagada, 2: Cancelada, 3: Devolución' },
-      { name: 'Sincronizado', type: 'BIT / INTEGER', nullable: false, description: 'Bandera de conciliación con servidor central' },
-      { name: 'FechaHoraRegistro', type: 'DATETIME / TEXT', nullable: false, description: 'Timestamp UTC de alta del registro' }
+      { name: 'profile_id', type: 'INT IDENTITY(1,1)', nullable: false, description: 'Identificador primario y autonumérico del rol' },
+      { name: 'description', type: 'VARCHAR(100)', nullable: false, description: 'Nombre descriptivo del rol (Administrador, Vendedor, Gerente)' },
+      { name: 'status', type: 'BIT (DEFAULT 1)', nullable: false, description: 'Estado lógico de disponibilidad del rol (1: Activo, 0: Inactivo)' }
     ],
     indices: [
-      'PK_Ventas_VentaID (Clustered)',
-      'IX_Ventas_Guid (UNIQUE VentaGuid)',
-      'IX_Ventas_Sincronizacion (Sincronizado, FechaHoraRegistro)'
+      'PK_Profile (Clustered Primary Key)',
+      'UQ_Profile_Description (UNIQUE description)'
     ]
   },
   {
-    name: 'Ventas_Detalle',
-    engine: 'Both',
-    description: 'Renglones individuales de productos, cantidades, precios unitarios e impuestos.',
-    primaryKey: 'DetalleID',
+    name: 'PaymentType',
+    engine: 'SQL Server',
+    description: 'Catálogo de modalidades y formas de pago admitidas en las transacciones del punto de venta.',
+    primaryKey: 'payment_type_id',
     columns: [
-      { name: 'DetalleID', type: 'BIGINT / INTEGER', nullable: false, description: 'ID autonumérico del renglón' },
-      { name: 'VentaID', type: 'BIGINT / INTEGER', nullable: false, description: 'Clave foránea hacia Ventas_Transacciones' },
-      { name: 'ProductoID', type: 'INT / INTEGER', nullable: false, description: 'Clave del producto en el catálogo maestro' },
-      { name: 'CodigoBarras', type: 'VARCHAR(32) / TEXT', nullable: false, description: 'Código escaneado (EAN-13, UPC, Code128)' },
-      { name: 'Descripcion', type: 'NVARCHAR(120) / TEXT', nullable: false, description: 'Nombre descriptivo capturado al momento' },
-      { name: 'Cantidad', type: 'DECIMAL(12,4) / REAL', nullable: false, description: 'Unidades o kilogramos despachados' },
-      { name: 'PrecioUnitario', type: 'DECIMAL(18,4) / REAL', nullable: false, description: 'Precio de lista vigente en la transacción' },
-      { name: 'PorcentajeDescuento', type: 'DECIMAL(5,2) / REAL', nullable: false, description: 'Descuento porcentual otorgado' },
-      { name: 'MontoImporte', type: 'DECIMAL(18,4) / REAL', nullable: false, description: 'Subtotal neto del renglón' },
-      { name: 'EsPesable', type: 'BIT / INTEGER', nullable: false, description: 'Indica si provino de báscula RS-232' }
+      { name: 'payment_type_id', type: 'INT IDENTITY(1,1)', nullable: false, description: 'Identificador primario y autonumérico de la forma de pago' },
+      { name: 'description', type: 'VARCHAR(100)', nullable: false, description: 'Descripción de la forma de pago (Efectivo, Débito, Crédito, etc.)' },
+      { name: 'status', type: 'BIT (DEFAULT 1)', nullable: false, description: 'Disponibilidad comercial de la forma de pago (1: Habilitado, 0: Inactivo)' }
     ],
     indices: [
-      'PK_Ventas_Detalle (Clustered)',
-      'IX_Detalle_VentaID (FK VentaID)',
-      'IX_Detalle_Producto (ProductoID)'
+      'PK_PaymentType (Clustered Primary Key)',
+      'UQ_PaymentType_Description (UNIQUE description)'
     ]
   },
   {
-    name: 'Catalogo_Productos',
-    engine: 'Both',
-    description: 'Catálogo de artículos sincronizado desde ERP central hacia la base SQLite local.',
-    primaryKey: 'ProductoID',
+    name: 'Brand',
+    engine: 'SQL Server',
+    description: 'Catálogo de marcas comerciales asociadas a los equipos celulares y accesorios tecnológicos.',
+    primaryKey: 'brand_id',
     columns: [
-      { name: 'ProductoID', type: 'INT / INTEGER', nullable: false, description: 'ID primario del artículo' },
-      { name: 'SKU', type: 'VARCHAR(32) / TEXT', nullable: false, description: 'Código interno de producto' },
-      { name: 'CodigoPrincipal', type: 'VARCHAR(32) / TEXT', nullable: false, description: 'Código de barras primario para escaneo' },
-      { name: 'Nombre', type: 'NVARCHAR(100) / TEXT', nullable: false, description: 'Nombre comercial para ticket y pantalla' },
-      { name: 'Categoria', type: 'NVARCHAR(50) / TEXT', nullable: true, description: 'Departamento o clasificación comercial' },
-      { name: 'PrecioVenta', type: 'DECIMAL(18,4) / REAL', nullable: false, description: 'Precio al público con impuestos' },
-      { name: 'TasaIVA', type: 'DECIMAL(5,2) / REAL', nullable: false, description: 'Porcentaje de impuesto aplicable' },
-      { name: 'PermiteBalanza', type: 'BIT / INTEGER', nullable: false, description: 'Requiere peso de báscula obligatorio' },
-      { name: 'ExistenciaLocal', type: 'DECIMAL(12,4) / REAL', nullable: false, description: 'Stock calculado para prevención de agotados' },
-      { name: 'UltimaModificacion', type: 'DATETIME / TEXT', nullable: false, description: 'Control de versión para sincronización delta' }
+      { name: 'brand_id', type: 'INT IDENTITY(1,1)', nullable: false, description: 'Identificador primario y autonumérico de la marca' },
+      { name: 'name', type: 'VARCHAR(100)', nullable: false, description: 'Nombre comercial de la marca (Samsung, Apple, Motorola, Xiaomi, etc.)' },
+      { name: 'status', type: 'BIT (DEFAULT 1)', nullable: false, description: 'Estado del registro de marca (1: Activa, 0: Inactiva)' }
     ],
     indices: [
-      'IX_Productos_CodigoPrincipal (Lookup rápido en <1ms)',
-      'IX_Productos_SKU (Búsqueda por código interno)',
-      'IX_Productos_Delta (UltimaModificacion)'
+      'PK_Brand (Clustered Primary Key)',
+      'UQ_Brand_Name (UNIQUE name)'
     ]
   },
   {
-    name: 'Hardware_AuditLog',
-    engine: 'SQLite (Local Cache)',
-    description: 'Bitácora local de eventos de periféricos (apertura de cajón, errores de corte, desconexión de báscula).',
-    primaryKey: 'LogID',
+    name: 'Customer',
+    engine: 'SQL Server',
+    description: 'Padrón de clientes registrados para facturación, emisión de tickets y comprobantes comerciales.',
+    primaryKey: 'customer_id',
     columns: [
-      { name: 'LogID', type: 'INTEGER', nullable: false, description: 'Autoincrementable' },
-      { name: 'Dispositivo', type: 'TEXT', nullable: false, description: 'Printer, CashDrawer, Scale, BarcodeScanner' },
-      { name: 'TipoEvento', type: 'TEXT', nullable: false, description: 'DRAWER_KICK, PAPER_OUT, SCALE_TARE, TIMEOUT' },
-      { name: 'DetalleHex', type: 'TEXT', nullable: true, description: 'Trama de bytes enviada o recibida' },
-      { name: 'FechaHora', type: 'DATETIME', nullable: false, description: 'Hora exacta del evento de hardware' }
+      { name: 'customer_id', type: 'INT IDENTITY(1,1)', nullable: false, description: 'Identificador primario y autonumérico del cliente' },
+      { name: 'name', type: 'VARCHAR(100)', nullable: false, description: 'Nombre de pila del cliente' },
+      { name: 'lastname', type: 'VARCHAR(100)', nullable: false, description: 'Apellido completo del cliente' },
+      { name: 'dni', type: 'VARCHAR(8)', nullable: false, description: 'Documento Nacional de Identidad único (8 dígitos)' },
+      { name: 'sex', type: 'VARCHAR(10)', nullable: false, description: 'Género (CHECK: Masculino, Femenino, Otro)' },
+      { name: 'email', type: 'VARCHAR(100)', nullable: false, description: 'Correo electrónico único validado con formato de email' },
+      { name: 'phone', type: 'VARCHAR(15)', nullable: true, description: 'Número telefónico de contacto' },
+      { name: 'address', type: 'VARCHAR(100)', nullable: true, description: 'Domicilio o dirección física del cliente' },
+      { name: 'birth', type: 'DATE', nullable: false, description: 'Fecha de nacimiento (validada fecha anterior al día actual)' },
+      { name: 'nationality', type: 'VARCHAR(100)', nullable: false, description: 'País de nacionalidad del cliente' },
+      { name: 'locality', type: 'VARCHAR(100)', nullable: false, description: 'Localidad o ciudad de residencia' },
+      { name: 'register_date', type: 'DATETIME2(7) (DEFAULT GETDATE())', nullable: false, description: 'Timestamp de alta en el sistema' },
+      { name: 'status', type: 'BIT (DEFAULT 1)', nullable: false, description: 'Estado del cliente (1: Habilitado, 0: Inactivo)' }
     ],
     indices: [
-      'IX_Audit_FechaHora (FechaHora DESC)'
+      'PK_Customer (Clustered Primary Key)',
+      'UQ_Customer_DNI (UNIQUE dni)',
+      'UQ_Customer_Email (UNIQUE email)',
+      'CHK_Customer_Sex (CHECK Masculino / Femenino / Otro)',
+      'CHK_Customer_Birth (CHECK birth < GETDATE())',
+      'CHK_Customer_Email (CHECK LIKE %_@_%.%)'
+    ]
+  },
+  {
+    name: 'User',
+    engine: 'SQL Server',
+    description: 'Usuarios del sistema (Cajeros, Gerentes, Administradores) con contraseñas cifradas en SHA-256 y tokens OTP.',
+    primaryKey: 'user_id',
+    columns: [
+      { name: 'user_id', type: 'INT IDENTITY(1,1)', nullable: false, description: 'Identificador primario y autonumérico del usuario' },
+      { name: 'profile_id', type: 'INT', nullable: false, description: 'Clave foránea hacia Profile (FK_User_Profile)' },
+      { name: 'name', type: 'VARCHAR(100)', nullable: false, description: 'Nombre del operador o empleado' },
+      { name: 'lastname', type: 'VARCHAR(100)', nullable: false, description: 'Apellido del operador o empleado' },
+      { name: 'dni', type: 'VARCHAR(8)', nullable: false, description: 'Documento de identidad único del usuario' },
+      { name: 'sex', type: 'VARCHAR(10)', nullable: false, description: 'Género (CHECK: Masculino, Femenino, Otro)' },
+      { name: 'username', type: 'VARCHAR(100)', nullable: false, description: 'Nombre de usuario único para inicio de sesión en el POS' },
+      { name: 'password', type: 'VARCHAR(255)', nullable: false, description: 'Hash criptográfico SHA-256 de la contraseña' },
+      { name: 'email', type: 'VARCHAR(100)', nullable: false, description: 'Correo institucional único para alertas y recuperación' },
+      { name: 'phone', type: 'VARCHAR(15)', nullable: true, description: 'Teléfono de contacto único (UQ_User_Phone)' },
+      { name: 'address', type: 'VARCHAR(100)', nullable: true, description: 'Domicilio físico del empleado' },
+      { name: 'birth', type: 'DATE', nullable: false, description: 'Fecha de nacimiento (Regla estricta de mayoría de edad >= 18 años)' },
+      { name: 'nationality', type: 'VARCHAR(100)', nullable: false, description: 'Nacionalidad' },
+      { name: 'locality', type: 'VARCHAR(100)', nullable: false, description: 'Localidad' },
+      { name: 'register_date', type: 'DATETIME2(7) (DEFAULT GETDATE())', nullable: false, description: 'Fecha y hora de creación de la cuenta' },
+      { name: 'status', type: 'BIT (DEFAULT 1)', nullable: false, description: 'Estado de la cuenta (1: Habilitada, 0: Bloqueada)' },
+      { name: 'reset_token', type: 'VARCHAR(6)', nullable: true, description: 'Token OTP de 6 dígitos para reseteo seguro de clave' },
+      { name: 'reset_token_expiration', type: 'DATETIME2', nullable: true, description: 'Fecha y hora límite de validez del token OTP' }
+    ],
+    indices: [
+      'PK_User (Clustered Primary Key)',
+      'FK_User_Profile (FOREIGN KEY -> Profile.profile_id)',
+      'UQ_User_Username (UNIQUE username)',
+      'UQ_User_DNI (UNIQUE dni)',
+      'UQ_User_Email (UNIQUE email)',
+      'UQ_User_Phone (UNIQUE phone)',
+      'CHK_User_Birth (CHECK >= 18 años)',
+      'CHK_User_Email (CHECK LIKE %_@_%.%)'
+    ]
+  },
+  {
+    name: 'Product',
+    engine: 'SQL Server',
+    description: 'Catálogo maestro de telefonía móvil y accesorios con control de existencias, código de barras y precios.',
+    primaryKey: 'product_id',
+    columns: [
+      { name: 'product_id', type: 'INT IDENTITY(1,1)', nullable: false, description: 'Identificador primario y autonumérico del producto' },
+      { name: 'brand_id', type: 'INT', nullable: false, description: 'Clave foránea hacia Brand (FK_Product_Brand)' },
+      { name: 'product_code', type: 'VARCHAR(100)', nullable: false, description: 'Código único de producto o código de barras escaneable' },
+      { name: 'name', type: 'VARCHAR(100)', nullable: false, description: 'Nombre comercial del modelo celular o accesorio' },
+      { name: 'stock', type: 'INT', nullable: false, description: 'Stock actual disponible en tienda (CHECK stock >= 0)' },
+      { name: 'purchase_price', type: 'DECIMAL(18,2)', nullable: false, description: 'Costo mayorista de adquisición (CHECK purchase_price >= 0)' },
+      { name: 'sale_price', type: 'DECIMAL(18,2)', nullable: false, description: 'Precio de venta al público (CHECK sale_price >= purchase_price)' },
+      { name: 'status', type: 'BIT (DEFAULT 1)', nullable: false, description: 'Estado de comercialización (1: Activo, 0: Descontinuado)' },
+      { name: 'image', type: 'VARCHAR(255)', nullable: true, description: 'Ruta o nombre del archivo de imagen del producto' }
+    ],
+    indices: [
+      'PK_Product (Clustered Primary Key)',
+      'FK_Product_Brand (FOREIGN KEY -> Brand.brand_id)',
+      'UQ_Product_Code (UNIQUE product_code)',
+      'CHK_Product_Stock (CHECK stock >= 0)',
+      'CHK_Product_PurchasePrice (CHECK purchase_price >= 0)',
+      'CHK_Product_SalePrice (CHECK sale_price >= purchase_price)'
+    ]
+  },
+  {
+    name: 'SaleHeader',
+    engine: 'SQL Server',
+    description: 'Cabecera transaccional de ventas realizadas en el POS con número de comprobante, cliente, cajero y monto total.',
+    primaryKey: 'sale_id',
+    columns: [
+      { name: 'sale_id', type: 'INT IDENTITY(1,1)', nullable: false, description: 'Identificador primario y autonumérico de la venta' },
+      { name: 'payment_type_id', type: 'INT', nullable: false, description: 'Clave foránea hacia PaymentType (FK_SaleHeader_PaymentType)' },
+      { name: 'customer_id', type: 'INT', nullable: false, description: 'Clave foránea hacia Customer (FK_SaleHeader_Customer)' },
+      { name: 'user_id', type: 'INT', nullable: false, description: 'Clave foránea hacia [User] (cajero que procesó la venta)' },
+      { name: 'sale_number', type: 'VARCHAR(100)', nullable: false, description: 'Número correlativo único del ticket o comprobante' },
+      { name: 'sale_date', type: 'DATETIME2(7) (DEFAULT GETDATE())', nullable: false, description: 'Fecha y hora exacta de emisión de la venta' },
+      { name: 'total_sale', type: 'DECIMAL(18,2)', nullable: false, description: 'Monto final total cobrado (CHECK total_sale >= 0)' },
+      { name: 'status', type: 'BIT (DEFAULT 1)', nullable: false, description: 'Estado de la venta (1: Confirmada, 0: Anulada)' }
+    ],
+    indices: [
+      'PK_SaleHeader (Clustered Primary Key)',
+      'FK_SaleHeader_PaymentType (FOREIGN KEY -> PaymentType.payment_type_id)',
+      'FK_SaleHeader_Customer (FOREIGN KEY -> Customer.customer_id)',
+      'FK_SaleHeader_User (FOREIGN KEY -> User.user_id)',
+      'UQ_SaleHeader_SaleNumber (UNIQUE sale_number)',
+      'CHK_SaleHeader_TotalSale (CHECK total_sale >= 0)'
+    ]
+  },
+  {
+    name: 'SaleDetail',
+    engine: 'SQL Server',
+    description: 'Renglones individuales del ticket con productos despachados, cantidades vendidas y precio unitario.',
+    primaryKey: 'sale_detail_id',
+    columns: [
+      { name: 'sale_detail_id', type: 'INT IDENTITY(1,1)', nullable: false, description: 'Identificador primario y autonumérico del renglón' },
+      { name: 'sale_id', type: 'INT', nullable: false, description: 'Clave foránea hacia SaleHeader (FK_SaleDetail_SaleHeader)' },
+      { name: 'product_id', type: 'INT', nullable: false, description: 'Clave foránea hacia Product (FK_SaleDetail_Product)' },
+      { name: 'quantity', type: 'INT', nullable: false, description: 'Cantidad de unidades comercializadas (CHECK quantity > 0)' },
+      { name: 'price', type: 'DECIMAL(18,2)', nullable: false, description: 'Precio unitario facturado (CHECK price >= 0)' }
+    ],
+    indices: [
+      'PK_SaleDetail (Clustered Primary Key)',
+      'FK_SaleDetail_SaleHeader (FOREIGN KEY -> SaleHeader.sale_id)',
+      'FK_SaleDetail_Product (FOREIGN KEY -> Product.product_id)',
+      'UQ_SaleDetail_Sale_Product (UNIQUE sale_id, product_id)',
+      'CHK_SaleDetail_Quantity (CHECK quantity > 0)',
+      'CHK_SaleDetail_Price (CHECK price >= 0)'
     ]
   }
 ];

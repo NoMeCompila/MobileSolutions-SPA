@@ -43,7 +43,7 @@ export interface CodeSnippet {
 
 export interface DatabaseTable {
   name: string;
-  engine: 'SQL Server 2019' | 'SQLite (Local Cache)' | 'Both';
+  engine: string;
   description: string;
   primaryKey: string;
   columns: {

@@ -36,16 +36,16 @@ export const DataResilienceSection: React.FC = () => {
       <div id="dat-schema" className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[rgba(0,180,216,0.2)] pb-4">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-[#00B4D8]">
-            <span>PERSISTENCIA HÍBRIDA & RESILIENCIA EN CONTINGENCIA</span>
+            <span>PERSISTENCIA RELACIONAL & ARQUITECTURA DAL</span>
             <span>•</span>
-            <span>[DAT.PERSISTENCE.WAL]</span>
+            <span>[DAT.SQLSERVER.LOCALDB]</span>
           </div>
           <h1 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-            Persistencia Dual: SQLite WAL & Microsoft SQL Server
+            Modelo de Base de Datos: Microsoft SQL Server
           </h1>
         </div>
         <span className="px-2.5 py-1 rounded bg-[#0E1B38] text-xs font-mono text-[#48CAE4] border border-[#00B4D8]/30 self-start sm:self-auto">
-          DAPPER MICRO-ORM + HMAC INTEGRITY
+          ADO.NET + STORED PROCEDURES (TVP)
         </span>
       </div>
 
@@ -55,18 +55,19 @@ export const DataResilienceSection: React.FC = () => {
           <div className="flex items-center justify-between text-xs font-mono text-[#00B4D8]">
             <span className="flex items-center gap-1.5 font-bold">
               <HardDrive className="w-4 h-4 text-[#48CAE4]" />
-              <span>PERSISTENCIA LOCAL: SQLITE 3.39 (WAL)</span>
+              <span>PERSISTENCIA LOCAL: MICROSOFT SQL SERVER / LOCALDB</span>
             </span>
             <span className="px-2 py-0.5 rounded bg-[#0E1B38] text-[10px] text-emerald-300">
-              LATENCIA &lt; 2ms
+              ACID • LOCALDB
             </span>
           </div>
           <p className="text-xs text-slate-300 font-sans leading-relaxed">
-            Cada terminal POS almacena localmente una copia completa de su catálogo de productos y una cola transaccional en modo Write-Ahead Logging (WAL). Si la fibra óptica o Wi-Fi de la tienda se interrumpe, el cajero puede seguir cobrando sin interrupción durante días.
+            La solución Mobile Solutions POS persiste sus datos localmente sobre Microsoft SQL Server / (localdb)\MSSQLLocalDB mediante la Capa de Acceso a Datos (DAL). Garantiza transaccionalidad ACID pura, integridad referencial mediante claves foráneas y aislamiento estricto en la estación comercial.
           </p>
           <div className="pt-1 flex flex-wrap gap-1.5 text-[10px] font-mono">
-            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#48CAE4] border border-slate-700">PRAGMA synchronous = NORMAL</span>
-            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#48CAE4] border border-slate-700">HMAC-SHA256 Cripto-Firma</span>
+            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#48CAE4] border border-slate-700">TrustServerCertificate=True</span>
+            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#48CAE4] border border-slate-700">SqlClient Pool</span>
+            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#48CAE4] border border-slate-700">Bootstrap DDL</span>
           </div>
         </div>
 
@@ -74,18 +75,19 @@ export const DataResilienceSection: React.FC = () => {
           <div className="flex items-center justify-between text-xs font-mono text-[#0077B6]">
             <span className="flex items-center gap-1.5 font-bold text-[#94CCFF]">
               <Server className="w-4 h-4 text-[#94CCFF]" />
-              <span>PERSISTENCIA CORPORATIVA: SQL SERVER 2019</span>
+              <span>LÓGICA EN BASE DE DATOS: STORED PROCEDURES & TVP</span>
             </span>
             <span className="px-2 py-0.5 rounded bg-[#0E1B38] text-[10px] text-slate-300">
-              CLUSTER MULTI-SUCURSAL
+              100% PROCEDIMIENTOS ALMACENADOS
             </span>
           </div>
           <p className="text-xs text-slate-300 font-sans leading-relaxed">
-            Consolidación centralizada para ERP, contabilidad fiscal y control de existencias en cedis. Las ventas locales sincronizadas se reciben mediante lotes comprimidos en GZip con validación de idempotencia por terminal y turno.
+            Toda la operatoria (CRUD de clientes, usuarios, ventas atómicas mediante Table-Valued Parameters, reportes analíticos y auditoría) está encapsulada en procedimientos almacenados optimizados con hashing criptográfico SHA-256 en contraseñas.
           </p>
           <div className="pt-1 flex flex-wrap gap-1.5 text-[10px] font-mono">
-            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#94CCFF] border border-slate-700">Partitioned Tables</span>
-            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#94CCFF] border border-slate-700">Columnstore Index</span>
+            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#94CCFF] border border-slate-700">TVP Sales Cart</span>
+            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#94CCFF] border border-slate-700">SHA-256 Passwords</span>
+            <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#94CCFF] border border-slate-700">Audit Trace</span>
           </div>
         </div>
       </div>
