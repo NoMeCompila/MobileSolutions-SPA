@@ -10,6 +10,8 @@ export interface ArchitectureLayer {
   name: string;
   code: string;
   description: string;
+  purpose?: string;
+  relations?: string;
   assemblies: string[];
   responsibilities: string[];
   technologies: string[];

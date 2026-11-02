@@ -1,99 +1,49 @@
 import React, { useState } from 'react';
 import { 
   Layers, 
-  Cpu, 
-  Database, 
-  Server, 
-  Workflow, 
-  ChevronRight, 
   ShieldCheck, 
   FileCode, 
   Check, 
-  ArrowDown, 
-  ArrowRight,
-  Radio
+  Info,
+  Target,
+  Network,
+  Cpu
 } from 'lucide-react';
 import { ARCHITECTURE_LAYERS } from '../../data/posArchitectureData';
 import { ArchitectureLayer } from '../../types';
 
 export const ArchitectureSection: React.FC = () => {
   const [selectedLayer, setSelectedLayer] = useState<ArchitectureLayer>(ARCHITECTURE_LAYERS[0]);
-  const [activeStep, setActiveStep] = useState<number>(0);
-
-  const workflowSteps = [
-    {
-      step: '01',
-      title: 'Captura RawInput (Láser)',
-      tier: 'Presentation / Win32',
-      detail: 'El lector envía trama HID. El Hook intercepta WM_INPUT en 2ms sin requerir foco en pantalla.',
-      badge: '2ms'
-    },
-    {
-      step: '02',
-      title: 'Búsqueda Catálogo (SQLite)',
-      tier: 'Data Persistence',
-      detail: 'Consulta parametrizada por índice IX_Productos_CodigoPrincipal en la base de datos local SQLite WAL.',
-      badge: '<1ms'
-    },
-    {
-      step: '03',
-      title: 'Motor de Precios & Impuestos',
-      tier: 'Core Business Logic',
-      detail: 'Aplica reglas de mayoreo, promociones 2x1, cálculo de IVA (16%) y suma total al estado del carrito.',
-      badge: '1ms'
-    },
-    {
-      step: '04',
-      title: 'Cobro & Firma Transaccional',
-      tier: 'Resilience Journal',
-      detail: 'Escritura atómica en SQLite con firma criptográfica HMAC-SHA256 para prevenir alteración de folios.',
-      badge: '3ms'
-    },
-    {
-      step: '05',
-      title: 'Disparo HAL Periféricos',
-      tier: 'Hardware Abstraction',
-      detail: 'Transmisión de bytes ESC/POS a COM1 (impresora), pulso 24V al solenoide de la gaveta y visor VFD.',
-      badge: '15ms'
-    },
-    {
-      step: '06',
-      title: 'Transmisión Delta Asíncrona',
-      tier: 'Sync Cloud Gateway',
-      detail: 'El worker en background empaqueta en GZip y envía hacia SQL Server central sin congelar la interfaz.',
-      badge: 'Async'
-    }
-  ];
 
   return (
-    <div className="space-y-10 animate-in fade-in duration-200">
+    <div className="space-y-8 animate-in fade-in duration-200">
       {/* Section Header */}
       <div id="arc-layers" className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[rgba(0,180,216,0.2)] pb-4">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-[#00B4D8]">
-            <span>ARQUITECTURA MULTICAPA DESACOPLADA</span>
+            <span>ARQUITECTURA DE 3 CAPAS (UI, BLL, DAL)</span>
             <span>•</span>
-            <span>[ARC.LYR.MATRIX]</span>
+            <span>[ARC.3TIER.NET]</span>
           </div>
           <h1 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-            Matriz de Arquitectura N-Tier (.NET Windows Forms)
+            Arquitectura de 3 Capas
           </h1>
         </div>
         <span className="px-2.5 py-1 rounded bg-[#0E1B38] text-xs font-mono text-[#48CAE4] border border-[#00B4D8]/30 self-start sm:self-auto">
-          PATRÓN MVP + REPOSITORY + HAL FACTORY
+          PATRÓN 3 CAPAS + ADO.NET + MATERIALSKIN
         </span>
       </div>
 
       {/* Interactive Layer Visualizer */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column: Interactive Layer Stack (5 columns) */}
-        <div className="lg:col-span-5 space-y-3">
+        {/* Left Column: 3 Layer Selection Cards (4 columns) */}
+        <div className="lg:col-span-4 space-y-3">
           <div className="text-xs font-mono text-slate-400 mb-2 flex items-center justify-between">
-            <span>SELECCIONA UNA CAPA ARQUITECTÓNICA:</span>
+            <span>CAPAS DEL SISTEMA:</span>
             <span className="text-[#00B4D8]">{ARCHITECTURE_LAYERS.length} Capas</span>
           </div>
 
-          <div className="space-y-2.5">
+          <div className="space-y-3">
             {ARCHITECTURE_LAYERS.map((layer, index) => {
               const isSelected = selectedLayer.id === layer.id;
               return (
@@ -119,7 +69,7 @@ export const ArchitectureSection: React.FC = () => {
                       {layer.code}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-400 font-sans mt-1.5 line-clamp-2">
+                  <p className="text-xs text-slate-400 font-sans mt-2 line-clamp-2 leading-relaxed">
                     {layer.description}
                   </p>
                 </div>
@@ -128,54 +78,64 @@ export const ArchitectureSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column: Layer Drill-Down Details (7 columns) */}
-        <div className="lg:col-span-7">
+        {/* Right Column: Layer Drill-Down Details (8 columns) */}
+        <div className="lg:col-span-8">
           <div className="p-6 rounded-xl border border-[rgba(0,180,216,0.35)] bg-gradient-to-br from-[#0A1128] to-[#070D1F] space-y-6 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00B4D8]/5 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-72 h-72 bg-[#00B4D8]/5 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="flex items-center justify-between border-b border-[rgba(0,180,216,0.2)] pb-4">
+            {/* Header of Selected Layer */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[rgba(0,180,216,0.2)] pb-4">
               <div>
                 <span className="text-[10px] font-mono text-[#00B4D8] uppercase tracking-wider">
-                  DETALLE DE ENSAMBLADOS Y CONTRATOS
+                  DETALLE Y ANÁLISIS DE LA CAPA
                 </span>
-                <h3 className="font-display text-xl font-bold text-white mt-0.5">
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">
                   {selectedLayer.name}
                 </h3>
               </div>
-              <span className="text-xs font-mono px-2 py-1 rounded bg-[#0077B6]/25 text-[#48CAE4] border border-[#00B4D8]/30">
+              <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#0077B6]/25 text-[#48CAE4] border border-[#00B4D8]/30 self-start sm:self-auto">
                 {selectedLayer.code}
               </span>
             </div>
 
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
-              {selectedLayer.description}
-            </p>
+            {/* Section 1: ¿De qué se trata? */}
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2 text-xs font-mono text-[#00B4D8]">
+                <Info className="w-3.5 h-3.5 text-[#48CAE4]" />
+                <span className="font-bold">¿DE QUÉ SE TRATA ESTA CAPA?</span>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-200 font-sans leading-relaxed pl-5 border-l-2 border-[#00B4D8]/30">
+                {selectedLayer.description}
+              </p>
+            </div>
 
-            {/* Assemblies DLLs */}
-            <div>
-              <div className="text-xs font-mono text-slate-400 mb-2 flex items-center gap-1.5">
-                <FileCode className="w-3.5 h-3.5 text-[#00B4D8]" />
-                <span>ENSAMBLADOS .NET (.DLL / .EXE):</span>
+            {/* Section 2: ¿Para qué sirve? */}
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+                <Target className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="font-bold">¿PARA QUÉ SIRVE?</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {selectedLayer.assemblies.map((assembly, aIdx) => (
-                  <div
-                    key={aIdx}
-                    className="p-2.5 rounded bg-[#060D24] border border-slate-800 text-xs font-mono text-slate-200 flex items-center justify-between"
-                  >
-                    <span className="text-[#48CAE4] truncate">{assembly}</span>
-                    <span className="text-[9px] text-slate-500 uppercase">IL Assembly</span>
-                  </div>
-                ))}
+              <p className="text-xs sm:text-sm text-slate-200 font-sans leading-relaxed pl-5 border-l-2 border-emerald-500/30">
+                {selectedLayer.purpose}
+              </p>
+            </div>
+
+            {/* Section 3: ¿Cómo se relaciona con las demás? */}
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2 text-xs font-mono text-[#94CCFF]">
+                <Network className="w-3.5 h-3.5 text-[#94CCFF]" />
+                <span className="font-bold">¿CÓMO SE RELACIONA CON LAS DEMÁS CAPAS?</span>
               </div>
+              <p className="text-xs sm:text-sm text-slate-200 font-sans leading-relaxed pl-5 border-l-2 border-[#94CCFF]/30">
+                {selectedLayer.relations}
+              </p>
             </div>
 
             {/* Core Responsibilities */}
             <div>
               <div className="text-xs font-mono text-slate-400 mb-2 flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>RESPONSABILIDADES DE DISEÑO:</span>
+                <span>RESPONSABILIDADES Y TAREAS CLAVE:</span>
               </div>
               <ul className="space-y-2 text-xs font-sans text-slate-300">
                 {selectedLayer.responsibilities.map((resp, rIdx) => (
@@ -187,17 +147,55 @@ export const ArchitectureSection: React.FC = () => {
               </ul>
             </div>
 
-            {/* Interfaces & Contracts */}
+            {/* Assemblies DLLs & Technologies */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-[rgba(0,180,216,0.15)]">
+              <div>
+                <div className="text-xs font-mono text-slate-400 mb-2 flex items-center gap-1.5">
+                  <FileCode className="w-3.5 h-3.5 text-[#00B4D8]" />
+                  <span>ENSAMBLADOS .NET:</span>
+                </div>
+                <div className="space-y-1.5">
+                  {selectedLayer.assemblies.map((assembly, aIdx) => (
+                    <div
+                      key={aIdx}
+                      className="p-2 rounded bg-[#060D24] border border-slate-800 text-xs font-mono text-[#48CAE4] flex items-center justify-between"
+                    >
+                      <span className="truncate">{assembly}</span>
+                      <span className="text-[9px] text-slate-500 uppercase">.NET Assembly</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="text-xs font-mono text-slate-400 mb-2 flex items-center gap-1.5">
+                  <Cpu className="w-3.5 h-3.5 text-[#94CCFF]" />
+                  <span>TECNOLOGÍAS / COMPONENTES:</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedLayer.technologies.map((tech, tIdx) => (
+                    <span
+                      key={tIdx}
+                      className="px-2 py-1 rounded bg-[#0E1B38] text-[11px] font-mono text-[#94CCFF] border border-[rgba(0,180,216,0.25)]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Classes & Interfaces */}
             <div>
               <div className="text-xs font-mono text-slate-400 mb-2 flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-[#94CCFF]" />
-                <span>INTERFACES & INYECCIÓN DE DEPENDENCIAS (IoC):</span>
+                <Layers className="w-3.5 h-3.5 text-[#00B4D8]" />
+                <span>CLASES Y SERVICIOS PRINCIPALES:</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {selectedLayer.interfaces.map((iface, iIdx) => (
                   <span
                     key={iIdx}
-                    className="px-2.5 py-1 rounded bg-[#0E1B38] text-xs font-mono text-[#00B4D8] border border-[rgba(0,180,216,0.3)]"
+                    className="px-2.5 py-1 rounded bg-[#060D24] text-xs font-mono text-[#48CAE4] border border-slate-800"
                   >
                     {iface}
                   </span>
@@ -205,59 +203,6 @@ export const ArchitectureSection: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Transactional Workflow Sequence (Interactive Pipeline) */}
-      <div id="arc-cycle" className="p-6 rounded-xl border border-[rgba(0,180,216,0.25)] bg-[#0A1128]/90 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div>
-            <div className="text-xs font-mono text-[#00B4D8]">[ARC.FLOW.SEQUENCE]</div>
-            <h2 className="font-display text-xl font-bold text-white">
-              Flujo Transaccional de Alta Velocidad (Láser a Ticket)
-            </h2>
-          </div>
-          <span className="text-xs font-mono text-slate-400">
-            LATENCIA TOTAL DE PASO: <strong className="text-[#00B4D8]">&lt; 25 ms</strong>
-          </span>
-        </div>
-
-        <p className="text-xs text-slate-300 font-sans leading-relaxed">
-          Haz clic en cada paso para inspeccionar cómo viaja el paquete de datos a través de las capas sin bloquear el hilo principal de la UI:
-        </p>
-
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {workflowSteps.map((ws, idx) => {
-            const isActive = activeStep === idx;
-            return (
-              <div
-                key={idx}
-                onClick={() => setActiveStep(idx)}
-                className={`p-3.5 rounded-lg border cursor-pointer transition-all ${
-                  isActive
-                    ? 'bg-[#0E1B38] border-[#00B4D8] shadow-[0_0_15px_rgba(0,180,216,0.35)]'
-                    : 'bg-[#070D1F] border-slate-800 hover:border-slate-700'
-                }`}
-              >
-                <div className="flex items-center justify-between text-xs font-mono mb-1.5">
-                  <span className="text-[#00B4D8] font-bold">PASO {ws.step}</span>
-                  <span className="px-1.5 py-0.2 rounded bg-[#0A1128] text-[#48CAE4] text-[10px] border border-slate-800">
-                    {ws.badge}
-                  </span>
-                </div>
-                <h4 className="font-display font-semibold text-sm text-slate-100">
-                  {ws.title}
-                </h4>
-                <div className="text-[10px] font-mono text-slate-500 mt-0.5">
-                  {ws.tier}
-                </div>
-                <p className="text-xs text-slate-300 font-sans mt-2 leading-relaxed">
-                  {ws.detail}
-                </p>
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>

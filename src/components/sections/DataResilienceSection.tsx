@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { 
-  Database, 
-  HardDrive, 
-  Server, 
-  Lock, 
-  RotateCcw, 
-  FileText, 
-  Key, 
+import {
+  Database,
+  HardDrive,
+  Server,
+  Lock,
+  RotateCcw,
+  FileText,
+  Key,
   Layers,
   ChevronRight,
   ShieldCheck,
@@ -40,15 +40,13 @@ export const DataResilienceSection: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-[#00B4D8]">
             <span>PERSISTENCIA RELACIONAL & ARQUITECTURA DAL</span>
-            <span>•</span>
-            <span>[DAT.SQLSERVER.LOCALDB]</span>
           </div>
           <h1 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
             Modelo de Base de Datos: Microsoft SQL Server
           </h1>
         </div>
         <span className="px-2.5 py-1 rounded bg-[#0E1B38] text-xs font-mono text-[#48CAE4] border border-[#00B4D8]/30 self-start sm:self-auto">
-          ADO.NET + STORED PROCEDURES (TVP)
+          ADO.NET + STORED PROCEDURES
         </span>
       </div>
 
@@ -103,9 +101,7 @@ export const DataResilienceSection: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#00B4D8]">
               <Network className="w-3.5 h-3.5 text-[#48CAE4]" />
-              <span>DIAGRAMA ENTIDAD-RELACIÓN (ERD) • ARCHIFY ENGINE</span>
-              <span>•</span>
-              <span>[3NF RELATIONAL SCHEMA]</span>
+              <span>DIAGRAMA ENTIDAD-RELACIÓN (ERD)</span>
             </div>
             <h2 className="font-display text-xl sm:text-2xl font-bold text-white mt-1">
               Diagrama ER Interactivo: Cardinalidades & Claves Foráneas
@@ -158,11 +154,10 @@ export const DataResilienceSection: React.FC = () => {
                     setSelectedTable(table);
                     setShowDdl(false);
                   }}
-                  className={`p-3 rounded-lg border cursor-pointer transition-all ${
-                    isSelected
-                      ? 'bg-[#0E1B38] border-[#00B4D8] shadow-[0_0_12px_rgba(0,180,216,0.3)]'
-                      : 'bg-[#0A1128]/70 border-[rgba(0,180,216,0.2)] hover:border-[#48CAE4]/50'
-                  }`}
+                  className={`p-3 rounded-lg border cursor-pointer transition-all ${isSelected
+                    ? 'bg-[#0E1B38] border-[#00B4D8] shadow-[0_0_12px_rgba(0,180,216,0.3)]'
+                    : 'bg-[#0A1128]/70 border-[rgba(0,180,216,0.2)] hover:border-[#48CAE4]/50'
+                    }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-mono font-bold text-xs text-slate-100 truncate">

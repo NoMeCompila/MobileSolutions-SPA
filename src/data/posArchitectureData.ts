@@ -16,106 +16,72 @@ export const SYSTEM_META = {
 export const ARCHITECTURE_LAYERS: ArchitectureLayer[] = [
   {
     id: 'layer-presentation',
-    name: 'Capa de Presentación (UI & Touch Experience)',
-    code: 'SYS.UI.WINFORMS',
+    name: 'Capa de Presentación (UI Layer)',
+    code: 'MobileSolutions.UILayer',
     color: '#00B4D8',
-    description: 'Interfaz gráfica desarrollada en Windows Forms acelerada por GDI+ Double Buffering y controles DevExpress optimizados para pantallas táctiles de 10" a 24".',
+    description: 'Interfaz gráfica de usuario desarrollada sobre .NET Windows Forms con una experiencia visual moderna mediante MaterialSkin.2 y componentes analíticos de LiveCharts.',
+    purpose: 'Capturar las acciones del usuario, renderizar formularios de alta interactividad (inicio de sesión, ventas, gestión de catálogo y reportes gerenciales), validar entradas a nivel de vista y delegar de forma estricta todo procesamiento a la capa de negocio.',
+    relations: 'Se comunica exclusivamente con la Capa de Lógica de Negocio (BusinessLayer) invocando sus servicios. No accede directamente a la Base de Datos ni a la Capa de Datos (DataLayer), asegurando el principio de responsabilidad única y desacoplamiento de capas.',
     assemblies: [
-      'MobileSolutions.POS.UI.exe',
-      'MobileSolutions.POS.Controls.dll',
-      'DevExpress.XtraBars.v21.2.dll'
+      'MobileSolutions.UILayer.dll',
+      'MaterialSkin.2.dll',
+      'LiveCharts.WinForms.dll'
     ],
     responsibilities: [
-      'Captura táctil de alta respuesta y teclado virtual numérico en pantalla',
-      'Interceptación de códigos de barra mediante Win32 RawInput API sin requerir foco en TextBox',
-      'Renderizado a 60 FPS con eliminación de parpadeo (SetStyle OptimizedDoubleBuffer)',
-      'Notificaciones sonoras POS y avisos visuales de confirmación de cobro',
-      'Soporte multimonitor: Pantalla principal para cajero y segunda pantalla para cliente'
+      'Inicio de sesión y autenticación visual de usuarios y cajeros (LoginForm)',
+      'Tablero de control principal y navegación modular del sistema (MainForm)',
+      'Vistas modulares desacopladas (SaleView, ProductView, CustomerView, UserView)',
+      'Generación de gráficos estadísticos y métricas de recaudación (ManagerReportControl)',
+      'Captura de eventos de escaneo de artículos, selección de clientes y medios de pago'
     ],
-    technologies: ['Windows Forms', 'C# GDI+', 'Win32 User32.dll Hooks', 'DevExpress WinForms Skinning'],
-    interfaces: ['ITouchPosView', 'IBarcodeNotificationHandler', 'ICustomerDisplayView']
+    technologies: ['.NET Windows Forms', 'C# GDI+ Double Buffering', 'MaterialSkin.2 (UI/UX)', 'LiveCharts 0.9.7'],
+    interfaces: ['SaleView', 'ProductView', 'CustomerView', 'UserView', 'LoginForm', 'MainForm', 'ManagerReportControl']
   },
   {
     id: 'layer-business',
-    name: 'Capa de Lógica de Negocio & Motor de Precios',
-    code: 'SYS.CORE.ENGINE',
+    name: 'Capa de Lógica de Negocio (Business Layer)',
+    code: 'MobileSolutions.BusinessLayer',
     color: '#48CAE4',
-    description: 'Motor transaccional central con cálculo de impuestos compuestos, matrices de descuentos por volumen, control de inventario en tiempo real y turnos de caja.',
+    description: 'Núcleo central del sistema donde residen las reglas de negocio, validaciones de dominio, cálculo de precios, seguridad de operadores y auditoría.',
+    purpose: 'Garantizar la coherencia transaccional y comercial: cálculo de importes de venta, control de inventario disponible, verificación de reglas de acceso (RBAC), hashing criptográfico SHA-256 de contraseñas y envío de tokens OTP mediante MailKit.',
+    relations: 'Actúa como orquestador e intermediario obligatorio: recibe solicitudes desde la Capa de Presentación (UILayer), ejecuta las validaciones y reglas del negocio, y delega la persistencia y lectura en la Capa de Datos (DataLayer). Protege a la base de datos de operaciones inválidas.',
     assemblies: [
-      'MobileSolutions.POS.Core.dll',
-      'MobileSolutions.POS.Domain.dll'
+      'MobileSolutions.BusinessLayer.dll',
+      'MailKit.dll',
+      'MimeKit.dll'
     ],
     responsibilities: [
-      'Evaluación de reglas de precios (2x1, mayoreo, monedero electrónico, cupones)',
-      'Cálculo de impuestos fiscales (IVA 16%, IEPS desglosado, retenciones)',
-      'Gestión de sesiones de caja (Arqueo, apertura, cortes X y Z, control de sobrantes/faltantes)',
-      'Máquina de estados finitos para la transacción de venta (Borrador -> Pagada -> Fiscalizada)',
-      'Autenticación criptográfica de operadores y roles con permisos granulares (RBAC)'
+      'Orquestación de operaciones comerciales y tickets de venta (SaleService)',
+      'Gestión de catálogo, validación de stock y precios de venta (ProductService)',
+      'Autenticación criptográfica con hash SHA-256 y administración de roles (UserService)',
+      'Despacho seguro de tokens OTP de 6 dígitos para recuperación de claves (PasswordResetService)',
+      'Emisión de comprobantes detallados y trazabilidad de eventos (TicketReportService, AuditService)'
     ],
-    technologies: ['C# Domain-Driven Design (DDD)', 'State Pattern', 'FluentValidation', 'Autofac IoC'],
-    interfaces: ['IPricingEngine', 'ITransactionService', 'IShiftManager', 'ITaxCalculator']
-  },
-  {
-    id: 'layer-hal',
-    name: 'Capa de Abstracción de Hardware (HAL)',
-    code: 'SYS.HAL.DRIVERS',
-    color: '#58D6F1',
-    description: 'Controladores desacoplados para periféricos punto de venta a través de puertos serie RS-232, USB Virtual COM, OPOS y sockets Ethernet.',
-    assemblies: [
-      'MobileSolutions.Hardware.dll',
-      'MobileSolutions.Hardware.EscPos.dll',
-      'MobileSolutions.Hardware.Opos.dll'
-    ],
-    responsibilities: [
-      'Traductor universal ESC/POS con generación de tickets térmicos y corte guillotine automático',
-      'Disparo de solenoide de gaveta de dinero vía pulso DK en pin 2 o tarjeta de relé USB',
-      'Lector de básculas electrónicas con filtrado de fluctuaciones y comando Tare/Zero',
-      'Transmisión de totales y bienvenida a Visor VFD de 20x2 caracteres en puerto COM',
-      'Conexión con terminales bancarias PinPad (Verifone/Ingenico) bajo protocolo EMV/OPI'
-    ],
-    technologies: ['System.IO.Ports.SerialPort', 'Win32 Direct USB COM', 'ESC/POS Standard', 'OPOS Common Controls'],
-    interfaces: ['IReceiptPrinter', 'IScaleReader', 'ICashDrawer', 'ICustomerVfdDisplay', 'IPinPadService']
+    technologies: ['C# Domain Services', 'Hashing SHA-256 Criptográfico', 'MailKit 4.18 (SMTP/TLS)', 'Data Transfer Objects (DTO)'],
+    interfaces: ['SaleService', 'ProductService', 'UserService', 'CustomerService', 'PasswordResetService', 'TicketReportService']
   },
   {
     id: 'layer-data',
-    name: 'Capa de Datos Híbrida & Resiliencia Offline',
-    code: 'SYS.DATA.PERSISTENCE',
+    name: 'Capa de Acceso a Datos (Data Access Layer)',
+    code: 'MobileSolutions.DataLayer',
     color: '#0077B6',
-    description: 'Arquitectura de doble persistencia: Caché local ultra-rápida SQLite con Write-Ahead Logging (WAL) y conexión a Microsoft SQL Server corporativo vía Dapper.',
+    description: 'Capa de persistencia y comunicación directa con el motor relacional Microsoft SQL Server / LocalDB mediante ADO.NET y procedimientos almacenados.',
+    purpose: 'Administrar el ciclo de vida de conexiones seguras (DatabaseConnection Pool), ejecutar Stored Procedures parametrizados, procesar carritos de venta atómicos mediante Table-Valued Parameters (TVP) y realizar el bootstrap inicial del esquema (DDL).',
+    relations: 'Atiende exclusivamente los requerimientos de la Capa de Lógica de Negocio (BusinessLayer). Lee y escribe registros directamente en Microsoft SQL Server, traduciendo datos relacionales en objetos de dominio sin exponer detalles del motor a capas superiores.',
     assemblies: [
-      'MobileSolutions.Data.dll',
-      'MobileSolutions.Data.Sqlite.dll',
-      'Dapper.dll'
+      'MobileSolutions.DataLayer.dll',
+      'Microsoft.Data.SqlClient.dll',
+      'System.Data.dll'
     ],
     responsibilities: [
-      'Almacenamiento offline ininterrumpido ante caída de red o falla de servidor central',
-      'Consultas parametrizadas de ultra-baja latencia (< 3ms) para búsqueda de catálogo de 150,000 SKUs',
-      'Firma HMAC-SHA256 en cada registro local para prevenir manipulación no autorizada de tickets',
-      'Gestión de conexiones resilientes con Polly (circuit breaker y reintentos automáticos)',
-      'Mapeo objeto-relacional optimizado mediante micro-ORM Dapper'
+      'Repositorios de datos especializados por entidad (SaleDal, ProductDal, UserDal, CustomerDal)',
+      'Gestión eficiente de pool de conexiones y transacciones ACID (DatabaseConnection)',
+      'Ejecución de compras masivas en bloque mediante Table-Valued Parameters (TVP)',
+      'Creación e inicialización del esquema DDL y datos semilla (DatabaseInitializer)',
+      'Mapeo optimizado de SqlDataReader hacia entidades de negocio fuertemente tipadas'
     ],
-    technologies: ['Microsoft SQL Server 2019', 'SQLite 3.39+ con WAL Mode', 'Dapper Micro-ORM', 'Polly Resilience Policy'],
-    interfaces: ['ITransactionRepository', 'IProductCatalogRepository', 'IOfflineJournalQueue']
-  },
-  {
-    id: 'layer-sync',
-    name: 'Capa de Sincronización & Gateway Cloud',
-    code: 'SYS.SYNC.GATEWAY',
-    color: '#94CCFF',
-    description: 'Servicio en segundo plano que transmite deltas de ventas, actualiza existencias e inventario y sincroniza cambios de precios sin bloquear la UI.',
-    assemblies: [
-      'MobileSolutions.SyncService.dll',
-      'MobileSolutions.Shared.Contracts.dll'
-    ],
-    responsibilities: [
-      'Detección automática de conectividad (Heartbeat periódico al servidor central)',
-      'Empaquetado y compresión GZip de lotes de transacciones pendientes en cola',
-      'Resolución de conflictos de concurrencia mediante timestamps e idempotency tokens',
-      'Actualización delta de catálogo de productos (solo descarga artículos modificados)',
-      'Cifrado en tránsito TLS 1.3 con validación de certificado digital de tienda'
-    ],
-    technologies: ['System.Threading.Tasks.Dataflow', 'GZipStream', 'HttpClient con SocketsHttpHandler', 'MessagePack'],
-    interfaces: ['ISyncEngine', 'IConnectivityMonitor', 'IDeltaConflictResolver']
+    technologies: ['Microsoft SQL Server / LocalDB', 'ADO.NET (SqlClient)', 'Procedimientos Almacenados (T-SQL)', 'Table-Valued Parameters (TVP)'],
+    interfaces: ['SaleDal', 'ProductDal', 'UserDal', 'CustomerDal', 'DatabaseConnection', 'DatabaseInitializer']
   }
 ];
 
