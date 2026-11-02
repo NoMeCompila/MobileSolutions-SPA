@@ -18,7 +18,8 @@ import {
   Monitor,
   Database,
   AppWindow,
-  GitBranch
+  GitBranch,
+  ExternalLink
 } from 'lucide-react';
 import { SectionId } from '../../types';
 import bannerImage from '../../assets/logo_mobile_solutions_dark.png';
@@ -49,14 +50,28 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onSelectSectio
         {/* Contenido centrado, limpio y legible */}
         <div className="max-w-3xl mx-auto text-center space-y-5">
           <div className="flex flex-col items-center gap-2">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0077B6]/25 border border-[#00B4D8]/40 text-[#48CAE4] text-xs font-mono w-fit">
+            <a
+              href="https://nomecompila.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0077B6]/25 border border-[#00B4D8]/40 text-[#48CAE4] text-xs font-mono w-fit hover:bg-[#0077B6]/40 hover:border-[#48CAE4] transition-all hover:scale-105 group cursor-pointer shadow-sm"
+              title="Ver portfolio del dev: Fernando Caballero"
+            >
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-              <span>DEV: Fernando Caballero</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0077B6]/25 border border-[#00B4D8]/40 text-[#48CAE4] text-xs font-mono w-fit">
+              <span>Ver Portfolio del Dev: Fernando Caballero</span>
+              <ExternalLink className="w-3.5 h-3.5 text-[#00B4D8] group-hover:text-white transition-colors" />
+            </a>
+            <a
+              href="https://github.com/mNicolasPannunzio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0077B6]/25 border border-[#00B4D8]/40 text-[#48CAE4] text-xs font-mono w-fit hover:bg-[#0077B6]/40 hover:border-[#48CAE4] transition-all hover:scale-105 group cursor-pointer shadow-sm"
+              title="Ver Portfolio del Dev: Pannunzio Mario Nicolas"
+            >
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-              <span>DEV: Pannunzio Mario Nicolas</span>
-            </div>
+              <span>Ver Portfolio del Dev: Pannunzio Mario Nicolas</span>
+              <ExternalLink className="w-3.5 h-3.5 text-[#00B4D8] group-hover:text-white transition-colors" />
+            </a>
           </div>
 
           <h1 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight">
