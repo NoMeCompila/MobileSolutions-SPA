@@ -1,32 +1,41 @@
 schema: spec-driven
 
-# Project context (optional)
-# Add only constraints that should guide OpenSpec artifacts and workflows.
-# Include constraints an agent cannot infer by reading the code.
-# Keep general project documentation and discoverable codebase facts out.
-# Example:
-#   context: |
-#     Designs and tasks must cover Windows, macOS, and Linux
-#     Write all artifacts in Spanish
+# Project context
+# Constraints and background context guiding OpenSpec artifacts and workflows.
+context: |
+  Repository structure:
+  - Root: SPA built with React 19 + Vite 8 + TypeScript + Tailwind CSS (designed for architecture showcase, telemetry, and interactive terminal simulation).
+  - repo/: Original .NET C# desktop solution (Windows Forms with MaterialSkin.2, BusinessLayer for domain rules and MailKit, DataLayer with ADO.NET and SQL Server Stored Procedures).
+  - specification/: Formal technical specification (PRD / SRS) in Markdown.
+  - openspec/: OpenSpec change management and lifecycle governance.
+  Language: Write all OpenSpec artifacts (proposal, specs, design, and tasks) in English.
+  Environment: Windows PowerShell / CMD on Node.js.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always state what is out of scope
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+# Per-artifact rules
+# Specific rules enforced for each artifact in the spec-driven workflow.
+rules:
+  proposal:
+    - "Keep proposals focused on clear technical goals and measurable value."
+    - "Explicitly specify what is in scope (In-Scope) and what is out of scope (Out-of-Scope)."
+  specs:
+    - "Identify each functional requirement with a unique identifier ([RF-xx])."
+    - "Describe verifiable acceptance criteria using the Gherkin format (Given / When / Then)."
+  design:
+    - "Maintain strict decoupling between the web SPA modules and the desktop components in repo/."
+    - "Include Mermaid diagrams (flowchart, sequenceDiagram, or erDiagram) to model key flows and data structures."
+  tasks:
+    - "Break work down into atomic, sequentially organized tasks."
+    - "Testing and QA must be conducted exclusively manually; DO NOT generate automated test suites, code, or test scripts."
+    - "Explicitly describe the sequential steps for manual execution of verifications and tests (UI actions, test inputs, visual validations, and browser devtools/console checks)."
 
-# Per-operation guidance (optional)
-# Add advisory guidance for how apply and archive work should be conducted.
-# This is separate from artifact rules above.
-# Example:
-#   operations:
-#     apply:
-#       guidance:
-#         - Keep test summaries concise
-#     archive:
-#       guidance:
-#         - Summarize the archive outcome before finishing
+# Per-operation guidance
+# Operational guidance for OpenSpec apply and archive commands.
+operations:
+  apply:
+    guidance:
+      - "Perform testing and QA manually following the sequential steps defined in tasks."
+      - "Record a concise summary of manual verifications performed upon completing each task."
+  archive:
+    guidance:
+      - "Verify that all manual QA checks and tests have passed before proceeding to archive."
+      - "Summarize implementation achievements and verification outcomes prior to archiving."
