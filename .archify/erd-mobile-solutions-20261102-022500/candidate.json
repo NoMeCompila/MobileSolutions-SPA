@@ -1,0 +1,498 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Diagrama de Entidad-Relación (ERD) - Mobile Solutions POS",
+    "subtitle": "Modelo Relacional Microsoft SQL Server (CreateDB.sql)",
+    "locale": "es",
+    "output": ".archify/erd-mobile-solutions-20261102-022500/mobile-solutions-erd.html",
+    "visual_preset": "blueprint",
+    "quality_profile": "standard",
+    "views": [
+      {
+        "id": "sales_circuit",
+        "label": "Circuito de Facturación y Ventas",
+        "focus": [
+          "sale_header",
+          "sale_detail",
+          "product",
+          "payment_type"
+        ],
+        "note": "Flujo principal del punto de venta: emisión de tickets, cálculo de líneas y formas de pago."
+      },
+      {
+        "id": "catalog_inventory",
+        "label": "Catálogo y Gestión de Marcas",
+        "focus": [
+          "product",
+          "brand"
+        ],
+        "note": "Artículos tecnológicos, stock en tiempo real y vinculación con fabricantes."
+      },
+      {
+        "id": "security_clients",
+        "label": "Control de Acceso y Clientes",
+        "focus": [
+          "user",
+          "profile",
+          "customer"
+        ],
+        "note": "Operadores del POS con roles RBAC y registro de clientes."
+      }
+    ]
+  },
+  "layout": {
+    "mode": "grid",
+    "gapY": 48,
+    "gapX": 80
+  },
+  "entities": [
+    {
+      "id": "customer",
+      "label": "Customer",
+      "tag": "CRM & Clientes",
+      "row": 0,
+      "col": 0,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "customer_id",
+          "type": "int",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "lastname",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "dni",
+          "type": "varchar(8)",
+          "key": "uk"
+        },
+        {
+          "name": "sex",
+          "type": "varchar(10)"
+        },
+        {
+          "name": "email",
+          "type": "varchar(100)",
+          "key": "uk"
+        },
+        {
+          "name": "phone",
+          "type": "varchar(15)"
+        },
+        {
+          "name": "address",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "birth",
+          "type": "date"
+        },
+        {
+          "name": "nationality",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "locality",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "register_date",
+          "type": "datetime2(7)"
+        },
+        {
+          "name": "status",
+          "type": "bit"
+        }
+      ]
+    },
+    {
+      "id": "user",
+      "label": "User",
+      "tag": "Seguridad & Roles",
+      "row": 1,
+      "col": 0,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "user_id",
+          "type": "int",
+          "key": "pk"
+        },
+        {
+          "name": "profile_id",
+          "type": "int",
+          "key": "fk",
+          "references": "profile.profile_id"
+        },
+        {
+          "name": "name",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "lastname",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "dni",
+          "type": "varchar(8)",
+          "key": "uk"
+        },
+        {
+          "name": "sex",
+          "type": "varchar(10)"
+        },
+        {
+          "name": "username",
+          "type": "varchar(100)",
+          "key": "uk"
+        },
+        {
+          "name": "password",
+          "type": "varchar(255)"
+        },
+        {
+          "name": "email",
+          "type": "varchar(100)",
+          "key": "uk"
+        },
+        {
+          "name": "phone",
+          "type": "varchar(15)",
+          "key": "uk"
+        },
+        {
+          "name": "address",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "birth",
+          "type": "date"
+        },
+        {
+          "name": "nationality",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "locality",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "register_date",
+          "type": "datetime2(7)"
+        },
+        {
+          "name": "status",
+          "type": "bit"
+        },
+        {
+          "name": "reset_token",
+          "type": "varchar(6)"
+        },
+        {
+          "name": "reset_token_expiration",
+          "type": "datetime2"
+        }
+      ]
+    },
+    {
+      "id": "profile",
+      "label": "Profile",
+      "tag": "Seguridad & Roles",
+      "row": 2,
+      "col": 0,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "profile_id",
+          "type": "int",
+          "key": "pk"
+        },
+        {
+          "name": "description",
+          "type": "varchar(100)",
+          "key": "uk"
+        },
+        {
+          "name": "status",
+          "type": "bit"
+        }
+      ]
+    },
+    {
+      "id": "sale_detail",
+      "label": "SaleDetail",
+      "tag": "Ventas & Facturación",
+      "row": 0,
+      "col": 1,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "sale_detail_id",
+          "type": "int",
+          "key": "pk"
+        },
+        {
+          "name": "sale_id",
+          "type": "int",
+          "key": "fk",
+          "references": "sale_header.sale_id"
+        },
+        {
+          "name": "product_id",
+          "type": "int",
+          "key": "fk",
+          "references": "product.product_id"
+        },
+        {
+          "name": "quantity",
+          "type": "int"
+        },
+        {
+          "name": "price",
+          "type": "decimal(18,2)"
+        }
+      ]
+    },
+    {
+      "id": "sale_header",
+      "label": "SaleHeader",
+      "tag": "Ventas & Facturación",
+      "row": 1,
+      "col": 1,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "sale_id",
+          "type": "int",
+          "key": "pk"
+        },
+        {
+          "name": "payment_type_id",
+          "type": "int",
+          "key": "fk",
+          "references": "payment_type.payment_type_id"
+        },
+        {
+          "name": "customer_id",
+          "type": "int",
+          "key": "fk",
+          "references": "customer.customer_id"
+        },
+        {
+          "name": "user_id",
+          "type": "int",
+          "key": "fk",
+          "references": "user.user_id"
+        },
+        {
+          "name": "sale_number",
+          "type": "varchar(100)",
+          "key": "uk"
+        },
+        {
+          "name": "sale_date",
+          "type": "datetime2(7)"
+        },
+        {
+          "name": "total_sale",
+          "type": "decimal(18,2)"
+        },
+        {
+          "name": "status",
+          "type": "bit"
+        }
+      ]
+    },
+    {
+      "id": "payment_type",
+      "label": "PaymentType",
+      "tag": "Medios de Pago",
+      "row": 2,
+      "col": 1,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "payment_type_id",
+          "type": "int",
+          "key": "pk"
+        },
+        {
+          "name": "description",
+          "type": "varchar(100)",
+          "key": "uk"
+        },
+        {
+          "name": "status",
+          "type": "bit"
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "label": "Product",
+      "tag": "Catálogo & Stock",
+      "row": 0,
+      "col": 2,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "product_id",
+          "type": "int",
+          "key": "pk"
+        },
+        {
+          "name": "brand_id",
+          "type": "int",
+          "key": "fk",
+          "references": "brand.brand_id"
+        },
+        {
+          "name": "product_code",
+          "type": "varchar(100)",
+          "key": "uk"
+        },
+        {
+          "name": "name",
+          "type": "varchar(100)"
+        },
+        {
+          "name": "stock",
+          "type": "int"
+        },
+        {
+          "name": "purchase_price",
+          "type": "decimal(18,2)"
+        },
+        {
+          "name": "sale_price",
+          "type": "decimal(18,2)"
+        },
+        {
+          "name": "status",
+          "type": "bit"
+        },
+        {
+          "name": "image",
+          "type": "varchar(255)"
+        }
+      ]
+    },
+    {
+      "id": "brand",
+      "label": "Brand",
+      "tag": "Catálogo & Stock",
+      "row": 1,
+      "col": 2,
+      "width": 280,
+      "attributes": [
+        {
+          "name": "brand_id",
+          "type": "int",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "varchar(100)",
+          "key": "uk"
+        },
+        {
+          "name": "status",
+          "type": "bit"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel_sale_header_customer",
+      "from": "sale_header",
+      "to": "customer",
+      "label": "cliente",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "rel_sale_header_user",
+      "from": "sale_header",
+      "to": "user",
+      "label": "cajero",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "rel_sale_header_payment_type",
+      "from": "sale_header",
+      "to": "payment_type",
+      "label": "medio de pago",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "rel_user_profile",
+      "from": "user",
+      "to": "profile",
+      "label": "rol rbac",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "rel_sale_detail_sale_header",
+      "from": "sale_detail",
+      "to": "sale_header",
+      "label": "ticket",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "rel_sale_detail_product",
+      "from": "sale_detail",
+      "to": "product",
+      "label": "artículo",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "id": "rel_product_brand",
+      "from": "product",
+      "to": "brand",
+      "label": "marca",
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Claves Primarias y Foráneas",
+      "items": [
+        "Todas las tablas implementan claves subrogadas autonuméricas IDENTITY(1,1).",
+        "SaleHeader centraliza las operaciones vinculando Customer, User y PaymentType.",
+        "SaleDetail y Product articulan la composición del ticket y descuento de inventario."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Restricciones de Integridad",
+      "items": [
+        "Restricciones UNIQUE en DNI, Email, Username, Teléfono y Código de Producto.",
+        "Reglas CHECK en mayoría de edad (>= 18 años), stock no negativo y precios de venta."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Persistencia Relacional",
+      "items": [
+        "Motor Microsoft SQL Server LocalDB con transaccionalidad ACID pura.",
+        "Diseño normalizado en Tercera Forma Normal (3NF) que elimina redundancias."
+      ]
+    }
+  ]
+}
+

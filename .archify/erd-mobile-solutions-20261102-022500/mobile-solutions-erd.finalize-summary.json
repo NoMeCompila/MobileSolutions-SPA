@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "erd",
+  "quality": "standard",
+  "specification": {
+    "path": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\erd-mobile-solutions-20261102-022500\\candidate.json",
+    "sha256": "2a38fb51442f268b914ef082349cd9e978f05bf3e6a1d5a49e8c691f62e3c340",
+    "bytes": 11030
+  },
+  "artifact": {
+    "path": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\erd-mobile-solutions-20261102-022500\\mobile-solutions-erd.html",
+    "sha256": "3b059d06aebf4e2f6057582d853513e40f4c51212dd56d60f26d73efd7cb38bb",
+    "bytes": 883762
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\erd-mobile-solutions-20261102-022500\\mobile-solutions-erd.finalize.json",
+    "summaryReceipt": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\erd-mobile-solutions-20261102-022500\\mobile-solutions-erd.finalize-summary.json",
+    "browserCheckReceipt": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\erd-mobile-solutions-20261102-022500\\mobile-solutions-erd.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-02T00:30:51.242Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 5365,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

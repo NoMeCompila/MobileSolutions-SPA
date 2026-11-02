@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "d80cbf40-0d32-425c-a78b-12ae5a95ccd5",
+  "status": "current",
+  "command": "deliver",
+  "type": "erd",
+  "input": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\erd-mobile-solutions-20261102-022500\\candidate.json",
+  "output": "C:\\Users\\FeR\\Desktop\\AllProjects\\MobileSolutionsDiagram\\.archify\\erd-mobile-solutions-20261102-022500\\mobile-solutions-erd.html",
+  "specification": {
+    "sha256": "2a38fb51442f268b914ef082349cd9e978f05bf3e6a1d5a49e8c691f62e3c340",
+    "bytes": 11030
+  },
+  "artifact": {
+    "sha256": "3b059d06aebf4e2f6057582d853513e40f4c51212dd56d60f26d73efd7cb38bb",
+    "bytes": 883762
+  }
+}

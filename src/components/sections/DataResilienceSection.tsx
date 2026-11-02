@@ -10,7 +10,10 @@ import {
   Layers,
   ChevronRight,
   ShieldCheck,
-  Check
+  Check,
+  Network,
+  ExternalLink,
+  Maximize2
 } from 'lucide-react';
 import { DATABASE_TABLES } from '../../data/posArchitectureData';
 import { DatabaseTable } from '../../types';
@@ -89,6 +92,50 @@ export const DataResilienceSection: React.FC = () => {
             <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#94CCFF] border border-slate-700">SHA-256 Passwords</span>
             <span className="px-2 py-0.5 rounded bg-[#060D24] text-[#94CCFF] border border-slate-700">Audit Trace</span>
           </div>
+        </div>
+      </div>
+
+      {/* Interactive Entity-Relationship Diagram (Archify Blueprint) */}
+      <div className="p-6 rounded-xl border border-[rgba(0,180,216,0.3)] bg-gradient-to-br from-[#0A1128] to-[#070D1F] space-y-4 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#00B4D8]/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(0,180,216,0.2)] pb-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#00B4D8]">
+              <Network className="w-3.5 h-3.5 text-[#48CAE4]" />
+              <span>DIAGRAMA ENTIDAD-RELACIÓN (ERD) • ARCHIFY ENGINE</span>
+              <span>•</span>
+              <span>[3NF RELATIONAL SCHEMA]</span>
+            </div>
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-white mt-1">
+              Diagrama ER Interactivo: Cardinalidades & Claves Foráneas
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <a
+              href="/mobile-solutions-erd.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0E1B38] text-xs font-mono text-[#48CAE4] border border-[#00B4D8]/30 hover:bg-[#00B4D8]/20 transition-all shadow-sm"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Abrir en Pantalla Completa</span>
+            </a>
+          </div>
+        </div>
+
+        <p className="text-xs text-slate-300 font-sans leading-relaxed">
+          Diagrama interactivo generado con motor Archify en estilo <em>Blueprint Dark Mode</em>. Representa las 8 tablas de Microsoft SQL Server de <code className="text-[#48CAE4] font-mono">CreateDB.sql</code>, sus claves primarias autonuméricas, claves foráneas, restricciones de unicidad y relaciones de 1 a Muchos (Crow&apos;s Foot).
+        </p>
+
+        {/* Embedded Interactive Viewer */}
+        <div className="w-full h-[660px] rounded-lg border border-[rgba(0,180,216,0.25)] overflow-hidden bg-[#050B1A] shadow-inner relative">
+          <iframe
+            src="/mobile-solutions-erd.html?theme=dark&embed=1"
+            title="Diagrama ER Mobile Solutions POS"
+            className="w-full h-full border-0"
+          />
         </div>
       </div>
 
