@@ -2,8 +2,7 @@ export type SectionId =
   | 'overview'
   | 'academic-docs'
   | 'architecture'
-  | 'data-resilience'
-  | 'code-repository';
+  | 'data-resilience';
 
 export interface ArchitectureLayer {
   id: string;
@@ -30,17 +29,6 @@ export interface HardwarePeripheral {
   driverType: 'OPOS' | 'ESC/POS' | 'Win32 RawInput' | 'Direct COM' | 'Ethernet TCP/IP';
   commands: { name: string; hex: string; description: string }[];
   status: 'connected' | 'idle' | 'transmitting' | 'error';
-}
-
-export interface CodeSnippet {
-  id: string;
-  filename: string;
-  language: string;
-  assembly: string;
-  namespace: string;
-  description: string;
-  linesOfCode: number;
-  code: string;
 }
 
 export interface DatabaseTable {

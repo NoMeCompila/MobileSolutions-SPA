@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Layers,
   Database,
-  Code,
   GraduationCap,
   MonitorCheck
 } from 'lucide-react';
@@ -59,16 +58,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id: 'data-resilience',
           title: 'Modelo de Base de Datos',
           icon: <Database className="w-5.5 h-5.5 text-[#0077B6]" />
-        }
-      ]
-    },
-    {
-      label: '03. CÓDIGO & DESARROLLO',
-      items: [
-        {
-          id: 'code-repository',
-          title: 'Código y Desarrollo',
-          icon: <Code className="w-5.5 h-5.5 text-[#94CCFF]" />
         }
       ]
     }

@@ -8,7 +8,6 @@ import { OverviewSection } from './components/sections/OverviewSection';
 import { AcademicDocsSection } from './components/sections/AcademicDocsSection';
 import { ArchitectureSection } from './components/sections/ArchitectureSection';
 import { DataResilienceSection } from './components/sections/DataResilienceSection';
-import { CodeRepositorySection } from './components/sections/CodeRepositorySection';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState<SectionId>('overview');
@@ -37,8 +36,6 @@ export default function App() {
         return <ArchitectureSection />;
       case 'data-resilience':
         return <DataResilienceSection />;
-      case 'code-repository':
-        return <CodeRepositorySection />;
       default:
         return <OverviewSection onSelectSection={setActiveSection} />;
     }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, Cpu, Server, Database, Code, Terminal, ArrowRight } from 'lucide-react';
-import { ARCHITECTURE_LAYERS, DATABASE_TABLES, CODE_SNIPPETS } from '../data/posArchitectureData';
+import { Search, X, Cpu, Server, Database, Terminal, ArrowRight } from 'lucide-react';
+import { ARCHITECTURE_LAYERS, DATABASE_TABLES } from '../data/posArchitectureData';
 import { SectionId } from '../types';
 
 interface SearchModalProps {
@@ -13,7 +13,7 @@ interface SearchItem {
   id: string;
   title: string;
   subtitle: string;
-  category: 'Arquitectura' | 'Hardware' | 'Base de Datos' | 'Código C#' | 'Módulos';
+  category: 'Arquitectura' | 'Hardware' | 'Base de Datos' | 'Módulos';
   sectionId: SectionId;
   tag: string;
 }
@@ -55,15 +55,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({
       category: 'Base de Datos' as const,
       sectionId: 'data-resilience' as SectionId,
       tag: `[DB.TAB]`
-    })),
-
-    ...CODE_SNIPPETS.map(c => ({
-      id: c.id,
-      title: c.filename,
-      subtitle: `${c.assembly} - ${c.description}`,
-      category: 'Código C#' as const,
-      sectionId: 'code-repository' as SectionId,
-      tag: '[C#.NET]'
     }))
   ];
 
@@ -156,7 +147,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                       {item.category === 'Arquitectura' && <Server className="w-4 h-4" />}
                       {item.category === 'Hardware' && <Cpu className="w-4 h-4" />}
                       {item.category === 'Base de Datos' && <Database className="w-4 h-4" />}
-                      {item.category === 'Código C#' && <Code className="w-4 h-4" />}
                       {item.category === 'Módulos' && <Terminal className="w-4 h-4" />}
                     </div>
                     <div className="truncate">
